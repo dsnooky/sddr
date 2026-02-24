@@ -3,145 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gadget Essentials PH</title>
+<title>Gadget Essentials PH Dashboard</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background: linear-gradient(to right, #e0f2fe, #dcfce7);
+body{
+ font-family:Arial;
+ margin:0;
+ padding:20px;
+ background:linear-gradient(to right,#e0f2fe,#dcfce7);
 }
-.header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.products {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  margin-top:20px;
-}
-.card {
-  background:white;
-  padding:15px;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-.card img {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border-radius:8px;
-}
-.btn {
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  width:100%;
-  margin-top:8px;
-}
-.buy {background:#2563eb; color:white;}
-.delete {background:#dc2626; color:white;}
-.admin-panel {
-  background:white;
-  padding:15px;
-  border-radius:12px;
-  margin-top:20px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-input {
-  width:100%;
-  padding:8px;
-  margin:5px 0;
-  border-radius:6px;
-  border:1px solid #ccc;
-}
+.header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+.section{background:white;padding:20px;border-radius:15px;margin-top:20px;box-shadow:0 4px 10px rgba(0,0,0,.1);}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:20px;}
+.card{background:white;padding:15px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.1);}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:8px;}
+input{width:100%;padding:8px;margin:5px 0;border-radius:6px;border:1px solid #ccc;}
+button{padding:10px;border:none;border-radius:8px;cursor:pointer;margin-top:8px;width:100%;}
+.buy{background:#2563eb;color:white;}
+.delete{background:#dc2626;color:white;}
 </style>
 </head>
 <body>
 
 <div class="header">
 <h1>Gadget Essentials PH</h1>
-<div>
 <button onclick="openAdminLogin()">Admin Login</button>
 </div>
+
+<div class="section">
+<h3>Affiliate Tracking Link Generator 💰</h3>
+<input id="affiliateLink" placeholder="Paste Shopee Product Link">
+<input id="affiliateCode" placeholder="Your Affiliate Code">
+<button class="buy" onclick="generateAffiliate()">Generate Tracking Link</button>
+<p id="generatedLink"></p>
 </div>
 
-<input type="text" id="search" placeholder="Search products..." onkeyup="renderProducts()">
+<div class="section">
+<h3>📊 Sales Dashboard (Local Analytics)</h3>
+<p>Total Products: <span id="totalProducts">0</span></p>
+<p>Total Clicks: <span id="totalClicks">0</span></p>
+<p>Estimated Sales Value: ₱<span id="salesValue">0</span></p>
+</div>
 
-<div id="adminPanel" class="admin-panel" style="display:none">
+<div id="adminPanel" class="section" style="display:none">
 <h3>Add Product</h3>
 <input id="name" placeholder="Product Name">
 <input id="price" type="number" placeholder="Price">
 <input id="image" placeholder="Image URL">
 <input id="link" placeholder="Shopee Link">
-<button class="btn buy" onclick="addProduct()">Add Product</button>
+<button class="buy" onclick="addProduct()">Add Product</button>
 </div>
 
 <div class="products" id="products"></div>
 
 <script>
-const ADMIN_PASSWORD = "admin123";
-let isAdmin = false;
+const ADMIN_PASSWORD="admin123";
+let isAdmin=false;
 
-// Hidden URL admin access
-function checkHiddenAdminAccess(){
-  const path = window.location.pathname;
-  if(path.includes("/admin")){
-    const pass = prompt("Enter Admin Password:");
-    if(pass === ADMIN_PASSWORD){
-      isAdmin = true;
-      document.getElementById("adminPanel").style.display = "block";
-    }
-  }
-}
+let products=JSON.parse(localStorage.getItem("products"))||[];
+let clicks=Number(localStorage.getItem("clicks"))||0;
 
-let products = JSON.parse(localStorage.getItem("products")) || [
-{id:1,name:"Fast Charging Powerbank 20000mAh",price:1299,image:"https://via.placeholder.com/300x200",link:"https://shopee.ph/your-product-link"}
-];
-
-function saveProducts(){
- localStorage.setItem("products",JSON.stringify(products));
-}
+function saveProducts(){localStorage.setItem("products",JSON.stringify(products));updateDashboard();}
+function saveClicks(){localStorage.setItem("clicks",clicks);updateDashboard();}
 
 function openAdminLogin(){
- const pass = prompt("Enter Admin Password:");
- if(pass === ADMIN_PASSWORD){
-   isAdmin=true;
-   document.getElementById("adminPanel").style.display="block";
- } else if(pass!==null){
-   alert("Incorrect password");
- }
+ const pass=prompt("Enter Admin Password");
+ if(pass===ADMIN_PASSWORD){isAdmin=true;document.getElementById("adminPanel").style.display="block";}
+ else if(pass!==null){alert("Incorrect password");}
 }
 
 function addProduct(){
- if(!isAdmin) return alert("Admin required");
+ if(!isAdmin) return alert("Admin only");
  const name=document.getElementById("name").value;
  const price=document.getElementById("price").value;
  const image=document.getElementById("image").value;
  const link=document.getElementById("link").value;
  if(!name||!price||!link) return alert("Fill required fields");
  products.push({id:Date.now(),name,price:Number(price),image:image||"https://via.placeholder.com/300x200",link});
- saveProducts();
- renderProducts();
+ saveProducts();renderProducts();
 }
 
-function deleteProduct(id){
- if(!isAdmin) return alert("Admin required");
- products=products.filter(p=>p.id!==id);
- saveProducts();
- renderProducts();
+function generateAffiliate(){
+ const link=document.getElementById("affiliateLink").value;
+ const code=document.getElementById("affiliateCode").value;
+ if(!link) return alert("Enter Shopee Link");
+ const trackingLink=link + (link.includes("?")?"&":"?") + "aff=" + encodeURIComponent(code);
+ document.getElementById("generatedLink").innerText=trackingLink;
 }
+
+function trackClick(){clicks++;saveClicks();}
 
 function renderProducts(){
- const search=document.getElementById("search").value.toLowerCase();
+ const search="";
  const container=document.getElementById("products");
  container.innerHTML="";
-
  products.filter(p=>p.name.toLowerCase().includes(search))
  .forEach(product=>{
    const card=document.createElement("div");
@@ -149,16 +103,24 @@ function renderProducts(){
    card.innerHTML=`
    <img src="${product.image}">
    <h3>${product.name}</h3>
-   <p><strong>₱${product.price}</strong></p>
-   <button class="btn buy" onclick="window.open('${product.link}','_blank')">Buy Now (Shopee)</button>
-   ${isAdmin?`<button class='btn delete' onclick='deleteProduct(${product.id})'>Delete</button>`:""}
+   <p>₱${product.price}</p>
+   <button class="buy" onclick="trackClick();window.open('${product.link}','_blank')">Buy Now</button>
+   ${isAdmin?`<button class='delete' onclick='deleteProduct(${product.id})'>Delete</button>`:""}
    `;
    container.appendChild(card);
  });
+ updateDashboard();
 }
 
-checkHiddenAdminAccess();
-renderProducts();
+function deleteProduct(id){if(!isAdmin) return;products=products.filter(p=>p.id!==id);saveProducts();renderProducts();}
+
+function updateDashboard(){
+ document.getElementById("totalProducts").innerText=products.length;
+ document.getElementById("totalClicks").innerText=clicks;
+ document.getElementById("salesValue").innerText=products.reduce((s,p)=>s+p.price,0);
+}
+
+renderProducts();updateDashboard();
 </script>
 </body>
 </html>
