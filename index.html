@@ -3,106 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gadget Essentials PH | Premium Store</title>
+<title>Gadget Essentials PH | Animated Store</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <style>
 body{
- font-family:Segoe UI,Arial;
- margin:0;
- background:linear-gradient(135deg,#0ea5e9,#22c55e);
- color:#0f172a;
+font-family:Segoe UI,Arial;
+margin:0;
+background:linear-gradient(135deg,#0ea5e9,#22c55e);
+color:#0f172a;
+animation:fadeIn 1s ease;
 }
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 .container{max-width:1100px;margin:auto;padding:20px;}
 .header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
-.hero{background:white;padding:30px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.1);margin-top:20px;text-align:center;}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:30px;}
-.card{background:white;padding:15px;border-radius:18px;box-shadow:0 6px 15px rgba(0,0,0,.08);}
-.card img{width:100%;height:180px;object-fit:cover;border-radius:12px;}
-input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-top:6px;}
-button{width:100%;padding:12px;border:none;border-radius:10px;margin-top:10px;cursor:pointer;font-weight:bold;}
+.hero{background:white;padding:30px;border-radius:25px;box-shadow:0 15px 40px rgba(0,0,0,.15);margin-top:20px;text-align:center;transform:translateY(20px);}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;margin-top:40px;}
+.card{background:white;padding:15px;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,.08);transition:.3s;}
+.card:hover{transform:translateY(-8px);}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:15px;}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin-top:8px;}
+button{width:100%;padding:14px;border:none;border-radius:12px;margin-top:12px;cursor:pointer;font-weight:bold;transition:.3s;}
 .primary{background:#2563eb;color:white;}
+.admin{background:#f43f5e;color:white;}
 .share{background:#10b981;color:white;}
 .order{background:#f59e0b;color:white;}
+#adminPanel{display:none;}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="header">
 <h1>🛒 Gadget Essentials PH</h1>
+<button class="admin" onclick="toggleAdmin()">Admin Panel</button>
 </div>
 
 <div class="hero">
 <h2>Premium Tech Store</h2>
-<p>Fast Delivery | COD Available | Trusted Dropshipping</p>
+<p>COD | Fast Delivery | Trusted Dropshipping</p>
 <button class="share" onclick="shareStore()">Share Store</button>
 </div>
 
-<!-- Product List -->
+<!-- Product Grid -->
 <div class="products" id="products"></div>
 
-<!-- Real Time Order Form -->
-<div class="hero" style="margin-top:30px">
-<h3>📦 Place Your Order</h3>
-<input id="customerName" placeholder="Full Name">
-<input id="customerPhone" placeholder="Phone Number">
-<input id="customerAddress" placeholder="Delivery Address">
-<textarea id="customerOrder" placeholder="Product Name / Order Details"></textarea>
-<button class="order" onclick="submitOrder()">Submit Order (Send to Messenger)</button>
+<!-- Order Form -->
+<div class="hero">
+<h3>📦 Place Order</h3>
+<input id="customerName" placeholder="Name">
+<input id="customerPhone" placeholder="Phone">
+<textarea id="customerOrder" placeholder="Order Details"></textarea>
+<button class="order" onclick="submitOrder()">Submit Order</button>
 <p id="orderStatus"></p>
+</div>
+
+<!-- Admin Panel -->
+<div class="hero" id="adminPanel">
+<h3>🔐 Admin Add Product</h3>
+<input id="pname" placeholder="Product Name">
+<input id="pprice" type="number" placeholder="Price">
+<input id="pimg" placeholder="Image URL">
+<input id="plink" placeholder="Shopee Link">
+<button class="primary" onclick="addProduct()">Add Product</button>
 </div>
 </div>
 
 <script>
 let products=JSON.parse(localStorage.getItem("products"))||[
-{id:1,name:"Fast Charging Powerbank 20000mAh",price:1299,image:"https://via.placeholder.com/300x200",link:"https://shopee.ph"},
-{id:2,name:"Magnetic Wireless Powerbank",price:1599,image:"https://via.placeholder.com/300x200",link:"https://shopee.ph"}
+{id:1,name:"Powerbank 20000mAh",price:1299,image:"https://via.placeholder.com/300x200",link:"https://shopee.ph"}
 ];
 
 function renderProducts(){
- const container=document.getElementById("products");
- container.innerHTML="";
- products.forEach(p=>{
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-   <img src="${p.image}">
-   <h3>${p.name}</h3>
-   <p><b>₱${p.price}</b></p>
-   <button class="primary" onclick="openProduct('${p.link}')">Buy Now</button>
-  `;
-  container.appendChild(card);
- });
+const container=document.getElementById("products");
+container.innerHTML="";
+products.forEach(p=>{
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`
+<img src="${p.image}">
+<h3>${p.name}</h3>
+<p><b>₱${p.price}</b></p>
+<button class="primary" onclick="window.open('${p.link}','_blank')">Buy Now</button>
+`;
+container.appendChild(card);
+});
+gsap.from(".card",{y:50,opacity:0,stagger:0.2});
 }
 
-function openProduct(link){
- window.open(link,'_blank');
+function addProduct(){
+const name=document.getElementById("pname").value;
+const price=document.getElementById("pprice").value;
+const img=document.getElementById("pimg").value;
+const link=document.getElementById("plink").value;
+if(!name||!price||!link){alert("Fill all fields");return;}
+products.push({id:Date.now(),name,price:Number(price),image:img||"https://via.placeholder.com/300x200",link});
+localStorage.setItem("products",JSON.stringify(products));
+renderProducts();
 }
 
-// Order Submission (Simulated Messenger/SMS Notification)
 function submitOrder(){
- const name=document.getElementById("customerName").value;
- const phone=document.getElementById("customerPhone").value;
- const address=document.getElementById("customerAddress").value;
- const order=document.getElementById("customerOrder").value;
+const name=document.getElementById("customerName").value;
+const phone=document.getElementById("customerPhone").value;
+const order=document.getElementById("customerOrder").value;
+if(!name||!phone||!order){alert("Complete order form");return;}
+document.getElementById("orderStatus").innerText="✅ Order submitted!";
+}
 
- if(!name||!phone||!address||!order){alert("Please complete order form");return;}
-
- // Simulate sending to Messenger / SMS API
- console.log("New Order:",name,phone,address,order);
- document.getElementById("orderStatus").innerText="✅ Order submitted! We will contact you shortly.";
-
- // Viral marketing automation suggestion: auto share prompt
- setTimeout(()=>{alert("Tip: Share this store to get discounts!");},2000);
+function toggleAdmin(){
+const panel=document.getElementById("adminPanel");
+panel.style.display=panel.style.display=="block"?"none":"block";
 }
 
 function shareStore(){
- if(navigator.share){
-  navigator.share({
-   title:"Gadget Essentials PH",
-   url:window.location.href
-  });
- }else{
-  alert("Copy link and share manually!");
- }
+if(navigator.share){navigator.share({title:"Gadget Essentials PH",url:location.href});}
+else alert("Copy link to share");
 }
 
 renderProducts();
