@@ -1,179 +1,168 @@
-import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ShoppingCart, Search, Settings } from "lucide-react";
-import { motion } from "framer-motion";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gadget Essentials PH</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to right, #e0f2fe, #dcfce7);
+    }
+    h1 {
+      color: #0f172a;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+    }
+    .buy { background-color: #2563eb; color: white; }
+    .delete { background-color: #dc2626; color: white; }
+    .admin-panel {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
 
-export default function GadgetStore() {
-  const [search, setSearch] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [products, setProducts] = useState([
+<div class="header">
+  <h1>Gadget Essentials PH</h1>
+  <button onclick="toggleAdmin()">Toggle Admin</button>
+</div>
+
+<input type="text" id="search" placeholder="Search products..." onkeyup="renderProducts()">
+
+<div id="adminPanel" class="admin-panel" style="display:none;">
+  <h3>Add New Product</h3>
+  <input type="text" id="name" placeholder="Product Name">
+  <input type="number" id="price" placeholder="Price">
+  <input type="text" id="image" placeholder="Image URL">
+  <input type="text" id="link" placeholder="Shopee Product Link">
+  <button class="btn buy" onclick="addProduct()">Add Product</button>
+</div>
+
+<div class="products" id="products"></div>
+
+<script>
+  let isAdmin = false;
+  let products = JSON.parse(localStorage.getItem("products")) || [
     {
       id: 1,
       name: "Fast Charging Powerbank 20000mAh",
       price: 1299,
       image: "https://via.placeholder.com/300x200",
-      shopeeLink: "https://shopee.ph/your-product-link"
-    },
-    {
-      id: 2,
-      name: "Magnetic Wireless Powerbank",
-      price: 1599,
-      image: "https://via.placeholder.com/300x200",
-      shopeeLink: "https://shopee.ph/your-product-link"
+      link: "https://shopee.ph/your-product-link"
     }
-  ]);
+  ];
 
-  const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: "",
-    image: "",
-    shopeeLink: ""
-  });
+  function saveProducts() {
+    localStorage.setItem("products", JSON.stringify(products));
+  }
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-  );
+  function toggleAdmin() {
+    isAdmin = !isAdmin;
+    document.getElementById("adminPanel").style.display = isAdmin ? "block" : "none";
+    renderProducts();
+  }
 
-  const addProduct = () => {
-    if (!newProduct.name || !newProduct.price || !newProduct.shopeeLink) return;
+  function addProduct() {
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+    const image = document.getElementById("image").value;
+    const link = document.getElementById("link").value;
 
-    const productToAdd = {
-      ...newProduct,
+    if (!name || !price || !link) return alert("Please fill required fields");
+
+    const newProduct = {
       id: Date.now(),
-      price: Number(newProduct.price)
+      name,
+      price: Number(price),
+      image: image || "https://via.placeholder.com/300x200",
+      link
     };
 
-    setProducts([...products, productToAdd]);
-    setNewProduct({ name: "", price: "", image: "", shopeeLink: "" });
-  };
+    products.push(newProduct);
+    saveProducts();
+    renderProducts();
 
-  const deleteProduct = (id) => {
-    setProducts(products.filter((p) => p.id !== id));
-  };
+    document.getElementById("name").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("image").value = "";
+    document.getElementById("link").value = "";
+  }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 p-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <header className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-3xl font-bold text-blue-700">
-            Gadget Essentials PH
-          </h1>
+  function deleteProduct(id) {
+    products = products.filter(p => p.id !== id);
+    saveProducts();
+    renderProducts();
+  }
 
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <div className="relative w-full md:w-80">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder="Search products..."
-                className="pl-10"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
+  function renderProducts() {
+    const search = document.getElementById("search").value.toLowerCase();
+    const container = document.getElementById("products");
+    container.innerHTML = "";
 
-            <Button
-              variant="outline"
-              className="rounded-2xl"
-              onClick={() => setIsAdmin(!isAdmin)}
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              {isAdmin ? "Close Admin" : "Admin"}
-            </Button>
-          </div>
-        </header>
+    products
+      .filter(p => p.name.toLowerCase().includes(search))
+      .forEach(product => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p><strong>₱${product.price}</strong></p>
+          <button class="btn buy" onclick="window.open('${product.link}', '_blank')">Buy Now (Shopee)</button>
+          ${isAdmin ? `<button class="btn delete" onclick="deleteProduct(${product.id})">Delete</button>` : ""}
+        `;
+        container.appendChild(card);
+      });
+  }
 
-        {/* Admin Panel */}
-        {isAdmin && (
-          <div className="bg-white p-6 rounded-2xl shadow-xl mb-8">
-            <h2 className="text-xl font-bold mb-4">Add New Product</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                placeholder="Product Name"
-                value={newProduct.name}
-                onChange={(e) =>
-                  setNewProduct({ ...newProduct, name: e.target.value })
-                }
-              />
-              <Input
-                placeholder="Price"
-                type="number"
-                value={newProduct.price}
-                onChange={(e) =>
-                  setNewProduct({ ...newProduct, price: e.target.value })
-                }
-              />
-              <Input
-                placeholder="Image URL"
-                value={newProduct.image}
-                onChange={(e) =>
-                  setNewProduct({ ...newProduct, image: e.target.value })
-                }
-              />
-              <Input
-                placeholder="Shopee Product Link"
-                value={newProduct.shopeeLink}
-                onChange={(e) =>
-                  setNewProduct({ ...newProduct, shopeeLink: e.target.value })
-                }
-              />
-            </div>
-            <Button
-              className="mt-4 rounded-2xl"
-              onClick={addProduct}
-            >
-              Add Product
-            </Button>
-          </div>
-        )}
+  renderProducts();
+</script>
 
-        {/* Product Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {filteredProducts.map((product) => (
-            <Card
-              key={product.id}
-              className="rounded-2xl shadow-lg hover:shadow-xl transition"
-            >
-              <CardContent className="p-4">
-                <img
-                  src={product.image || "https://via.placeholder.com/300x200"}
-                  alt={product.name}
-                  className="w-full h-48 object-cover rounded-xl mb-4"
-                />
-                <h2 className="text-lg font-semibold mb-2">
-                  {product.name}
-                </h2>
-                <p className="text-blue-600 font-bold mb-4">
-                  ₱{product.price}
-                </p>
-
-                <Button
-                  className="w-full rounded-2xl"
-                  onClick={() => window.open(product.shopeeLink, "_blank")}
-                >
-                  Buy Now (Shopee)
-                </Button>
-
-                {isAdmin && (
-                  <Button
-                    variant="destructive"
-                    className="w-full mt-2 rounded-2xl"
-                    onClick={() => deleteProduct(product.id)}
-                  >
-                    Delete
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </motion.div>
-      </div>
-    </div>
-  );
-}
+</body>
+</html>
