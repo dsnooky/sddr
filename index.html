@@ -8,6 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
+
 body{
 margin:0;
 font-family:Poppins,Segoe UI;
@@ -22,6 +23,15 @@ margin:auto;
 padding:20px;
 }
 
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+}
+
+/* PRODUCT GRID */
 .products{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -37,6 +47,7 @@ margin-top:30px;
 .products{grid-template-columns:1fr;}
 }
 
+/* CARD */
 .card{
 backdrop-filter:blur(15px);
 background:rgba(255,255,255,.2);
@@ -57,6 +68,7 @@ object-fit:cover;
 border-radius:15px;
 }
 
+/* BUTTONS */
 button{
 width:100%;
 padding:10px;
@@ -71,6 +83,32 @@ cursor:pointer;
 .edit{background:#f59e0b;color:white;}
 .delete{background:#ef4444;color:white;}
 
+/* LOGIN BUTTON */
+.admin-btn{
+background:#111827;
+color:white;
+padding:8px 15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* LOGIN POPUP */
+.login-popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+color:black;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 40px rgba(0,0,0,.4);
+z-index:999;
+}
+
+/* ADMIN PANEL */
 .admin-panel{
 display:none;
 background:white;
@@ -80,14 +118,7 @@ border-radius:20px;
 margin-top:20px;
 }
 
-.login-box{
-background:white;
-color:black;
-padding:25px;
-border-radius:20px;
-margin-top:20px;
-}
-
+/* INPUTS */
 input,textarea{
 width:100%;
 padding:10px;
@@ -96,6 +127,7 @@ border-radius:8px;
 border:1px solid #ccc;
 }
 
+/* OFFLINE */
 #offlineBanner{
 display:none;
 background:#f59e0b;
@@ -103,6 +135,7 @@ padding:10px;
 text-align:center;
 font-weight:bold;
 }
+
 </style>
 </head>
 
@@ -114,18 +147,40 @@ font-weight:bold;
 
 <div class="container">
 
+<div class="header">
 <h1>🛒 Gadget Essentials PH</h1>
 
-<!-- LOGIN -->
-<div class="login-box" id="adminLogin">
-<h2>Admin Login</h2>
-<input type="password" id="adminPassword" placeholder="Enter Password">
-<button class="primary" onclick="checkPassword()">Login</button>
+<button class="admin-btn" onclick="toggleLoginPopup()">
+🔐 Admin Login
+</button>
+</div>
+
+<!-- WELCOME -->
+<div style="margin-top:30px;text-align:center">
+<h2>Welcome to Gadget Essentials PH</h2>
+<p>Your Trusted Tech Accessories Store</p>
+</div>
+
+<!-- LOGIN POPUP -->
+<div class="login-popup" id="loginPopup">
+<h3>Admin Login</h3>
+
+<input type="password" id="adminPassword"
+placeholder="Enter Password">
+
+<button class="primary" onclick="checkPassword()">
+Login
+</button>
+
+<button class="delete" onclick="toggleLoginPopup()">
+Close
+</button>
 </div>
 
 <!-- ADMIN PANEL -->
 <div class="admin-panel" id="adminPanel">
-<h2>Product Editor</h2>
+
+<h3>Product Editor</h3>
 
 <input type="hidden" id="editIndex">
 
@@ -135,9 +190,14 @@ font-weight:bold;
 <input id="pimg" placeholder="Image URL">
 <input id="plink" placeholder="Shopee Link">
 
-<button class="primary" onclick="saveProduct()">Save Product</button>
+<button class="primary" onclick="saveProduct()">
+Save Product
+</button>
 
-<button class="delete" onclick="logoutAdmin()">Logout</button>
+<button class="delete" onclick="logoutAdmin()">
+Logout
+</button>
+
 </div>
 
 <!-- PRODUCTS -->
@@ -152,13 +212,22 @@ const ADMIN_PASSWORD="GEPH2026";
 let isAdmin=sessionStorage.getItem("adminLogged")==="true";
 
 /* LOGIN */
+function toggleLoginPopup(){
+let popup=document.getElementById("loginPopup");
+popup.style.display =
+popup.style.display==="block" ? "none":"block";
+}
+
 function checkPassword(){
 let pass=document.getElementById("adminPassword").value;
 
 if(pass===ADMIN_PASSWORD){
 sessionStorage.setItem("adminLogged","true");
 isAdmin=true;
-showAdmin();
+
+document.getElementById("loginPopup").style.display="none";
+document.getElementById("adminPanel").style.display="block";
+
 alert("✅ Admin Access Granted");
 }else{
 alert("❌ Wrong Password");
@@ -168,16 +237,6 @@ alert("❌ Wrong Password");
 function logoutAdmin(){
 sessionStorage.removeItem("adminLogged");
 isAdmin=false;
-hideAdmin();
-}
-
-function showAdmin(){
-document.getElementById("adminLogin").style.display="none";
-document.getElementById("adminPanel").style.display="block";
-}
-
-function hideAdmin(){
-document.getElementById("adminLogin").style.display="block";
 document.getElementById("adminPanel").style.display="none";
 }
 
@@ -207,6 +266,7 @@ products[editIndex]={name,desc,price,image:img,link};
 }
 
 localStorage.setItem("products",JSON.stringify(products));
+
 clearForm();
 renderProducts();
 }
@@ -227,24 +287,7 @@ plink.value="";
 editIndexField.value="";
 }
 
-function editProduct(index){
-let p=products[index];
-editIndexField.value=index;
-pname.value=p.name;
-pdesc.value=p.desc;
-pprice.value=p.price;
-pimg.value=p.image;
-plink.value=p.link;
-window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function deleteProduct(index){
-products.splice(index,1);
-localStorage.setItem("products",JSON.stringify(products));
-renderProducts();
-}
-
-/* RENDER PRODUCTS */
+/* RENDER */
 function renderProducts(){
 
 let container=document.getElementById("products");
@@ -256,8 +299,13 @@ let adminButtons="";
 
 if(isAdmin){
 adminButtons=`
-<button class="edit" onclick="editProduct(${index})">Edit</button>
-<button class="delete" onclick="deleteProduct(${index})">Delete</button>
+<button class="edit" onclick="editProduct(${index})">
+Edit
+</button>
+
+<button class="delete" onclick="deleteProduct(${index})">
+Delete
+</button>
 `;
 }
 
@@ -270,7 +318,8 @@ card.innerHTML=`
 <p>${p.desc||""}</p>
 <p><b>₱${p.price}</b></p>
 
-<button class="primary" onclick="window.open('${p.link}','_blank')">
+<button class="primary"
+onclick="window.open('${p.link}','_blank')">
 Buy Now
 </button>
 
@@ -283,7 +332,7 @@ container.appendChild(card);
 gsap.from(".card",{y:30,opacity:0,stagger:0.1});
 }
 
-/* OFFLINE DETECTION */
+/* OFFLINE */
 function updateOnlineStatus(){
 document.getElementById("offlineBanner").style.display =
 navigator.onLine ? "none":"block";
@@ -293,8 +342,9 @@ window.addEventListener("load",()=>{
 updateOnlineStatus();
 renderProducts();
 
-if(isAdmin) showAdmin();
-else hideAdmin();
+if(isAdmin){
+document.getElementById("adminPanel").style.display="block";
+}
 });
 
 window.addEventListener("online",updateOnlineStatus);
