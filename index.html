@@ -80,12 +80,7 @@ cursor:pointer;
 .delete{background:#ef4444;color:white;}
 
 .admin-btn{
-background:#111827;
-color:white;
-padding:8px 15px;
-border-radius:10px;
-border:none;
-cursor:pointer;
+display:none;
 }
 
 /* LOGIN POPUP */
@@ -130,13 +125,9 @@ border:1px solid #ccc;
 
 <div class="header">
 <h1>🛒 Gadget Essentials PH</h1>
-
-<button class="admin-btn" onclick="toggleLoginPopup()">
-🔐 Admin Login
-</button>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN POPUP (Hidden Admin System) -->
 <div id="loginPopup">
 <h3>Admin Login</h3>
 <input type="password" id="adminPassword" placeholder="Enter Password">
@@ -166,15 +157,38 @@ border:1px solid #ccc;
 
 <script>
 
-/* SECURITY */
+/* PRO SECURITY */
 const ADMIN_PASSWORD="GEPH2026";
-let isAdmin=sessionStorage.getItem("adminLogged")==="true";
 
-/* LOGIN */
+let urlParams=new URLSearchParams(window.location.search);
+let isAdmin=false;
+
+if(urlParams.get("admin")===ADMIN_PASSWORD){
+sessionStorage.setItem("adminLogged","true");
+}
+
+isAdmin=sessionStorage.getItem("adminLogged")==="true";
+
+/* ANTI RIGHT CLICK */
+document.addEventListener("contextmenu",e=>{
+e.preventDefault();
+});
+
+/* PRODUCTS DATA */
+let products=JSON.parse(localStorage.getItem("products"))||[];
+
+const pname=document.getElementById("pname");
+const pdesc=document.getElementById("pdesc");
+const pprice=document.getElementById("pprice");
+const pimg=document.getElementById("pimg");
+const plink=document.getElementById("plink");
+const editIndexField=document.getElementById("editIndex");
+
+/* LOGIN POPUP CONTROL */
 function toggleLoginPopup(){
 let popup=document.getElementById("loginPopup");
-popup.style.display =
-popup.style.display==="block" ? "none":"block";
+popup.style.display=
+popup.style.display==="block"?"none":"block";
 }
 
 function checkPassword(){
@@ -188,22 +202,14 @@ document.getElementById("loginPopup").style.display="none";
 document.getElementById("adminPanel").style.display="block";
 
 alert("✅ Admin Access Granted");
+
 renderProducts();
 }else{
 alert("❌ Wrong Password");
 }
 }
 
-/* PRODUCTS */
-let products=JSON.parse(localStorage.getItem("products"))||[];
-
-const pname=document.getElementById("pname");
-const pdesc=document.getElementById("pdesc");
-const pprice=document.getElementById("pprice");
-const pimg=document.getElementById("pimg");
-const plink=document.getElementById("plink");
-const editIndexField=document.getElementById("editIndex");
-
+/* SAVE PRODUCT */
 function saveProduct(){
 
 let name=pname.value;
@@ -278,7 +284,6 @@ ${adminButtons}
 `;
 
 container.appendChild(card);
-
 });
 
 gsap.from(".card",{y:30,opacity:0,stagger:0.1});
