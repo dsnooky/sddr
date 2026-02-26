@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice Generator - YourAgency</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f4f6f9;
+padding:30px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:#fff;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+margin-bottom:30px;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ddd;
+}
+
+button{
+padding:12px 25px;
+background:#007bff;
+color:#fff;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.invoice{
+background:#fff;
+padding:40px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+display:none;
+}
+
+.invoice-header{
+display:flex;
+justify-content:space-between;
+margin-bottom:30px;
+}
+
+.invoice table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+.invoice table, th, td{
+border:1px solid #ddd;
+}
+
+th, td{
+padding:12px;
+text-align:left;
+}
+
+.total{
+text-align:right;
+margin-top:20px;
+font-size:18px;
+font-weight:600;
+}
+
+@media print{
+body *{
+visibility:hidden;
+}
+.invoice, .invoice *{
+visibility:visible;
+}
+.invoice{
+position:absolute;
+left:0;
+top:0;
+width:100%;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+<h1>Generate Invoice</h1>
+
+<input type="text" id="clientName" placeholder="Client Name">
+<input type="email" id="clientEmail" placeholder="Client Email">
+
+<select id="package">
+<option value="5000">Starter Package - ₱5,000</option>
+<option value="8000">Professional Package - ₱8,000</option>
+<option value="12000">Premium Package - ₱12,000</option>
+</select>
+
+<button onclick="generateInvoice()">Generate Invoice</button>
+</div>
+
+<div class="invoice" id="invoice">
+<div class="invoice-header">
+<div>
+<h2>YourAgency</h2>
+<p>Email: your@email.com</p>
+<p>Phone: 09XXXXXXXXX</p>
+</div>
+
+<div>
+<p><strong>Invoice #:</strong> <span id="invoiceNumber"></span></p>
+<p><strong>Date:</strong> <span id="invoiceDate"></span></p>
+</div>
+</div>
+
+<hr>
+
+<p><strong>Billed To:</strong></p>
+<p id="billName"></p>
+<p id="billEmail"></p>
+
+<table>
+<tr>
+<th>Description</th>
+<th>Amount</th>
+</tr>
+<tr>
+<td id="packageName"></td>
+<td id="packagePrice"></td>
+</tr>
+</table>
+
+<div class="total">
+Total: ₱<span id="totalAmount"></span>
+</div>
+
+<button onclick="window.print()">Download / Print PDF</button>
+
+</div>
+
+</div>
+
+<script>
+function generateInvoice(){
+
+let name = document.getElementById("clientName").value;
+let email = document.getElementById("clientEmail").value;
+let packagePrice = document.getElementById("package").value;
+let packageText = document.getElementById("package").selectedOptions[0].text;
+
+let invoiceNumber = "INV-" + Math.floor(Math.random()*100000);
+let today = new Date().toLocaleDateString();
+
+document.getElementById("invoiceNumber").innerText = invoiceNumber;
+document.getElementById("invoiceDate").innerText = today;
+
+document.getElementById("billName").innerText = name;
+document.getElementById("billEmail").innerText = email;
+
+document.getElementById("packageName").innerText = packageText;
+document.getElementById("packagePrice").innerText = "₱" + packagePrice;
+document.getElementById("totalAmount").innerText = packagePrice;
+
+document.getElementById("invoice").style.display = "block";
+}
+</script>
+
+</body>
+</html>
