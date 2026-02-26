@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RestaurantPro</title>
+<title>Your Agency Name</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -20,17 +20,12 @@ body{
     line-height:1.6;
 }
 
-a{
-    text-decoration:none;
-}
-
 .container{
     width:90%;
     max-width:1200px;
     margin:auto;
 }
 
-/* NAVIGATION */
 nav{
     position:fixed;
     width:100%;
@@ -46,7 +41,7 @@ nav .nav-container{
 }
 
 nav h2{
-    color:#ff6b00;
+    color:#00d4ff;
 }
 
 nav ul{
@@ -57,48 +52,48 @@ nav ul{
 
 nav ul li a{
     color:#fff;
+    text-decoration:none;
     font-weight:500;
 }
 
 /* HERO */
 .hero{
     height:100vh;
-    background:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5') center/cover no-repeat;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
     padding:0 20px;
-}
-
-.hero-overlay{
-    background:rgba(0,0,0,0.7);
-    padding:40px;
-    border-radius:15px;
+    background:linear-gradient(135deg,#001f2f,#003c5f);
 }
 
 .hero h1{
     font-size:50px;
-    margin-bottom:15px;
+    margin-bottom:20px;
 }
 
 .hero p{
     font-size:20px;
-    margin-bottom:20px;
+    margin-bottom:30px;
+    max-width:700px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .btn{
     display:inline-block;
     padding:12px 30px;
-    background:#ff6b00;
-    color:#fff;
+    background:#00d4ff;
+    color:#000;
     border-radius:50px;
     margin:5px;
+    font-weight:600;
+    text-decoration:none;
     transition:0.3s;
 }
 
 .btn:hover{
-    background:#ff8533;
+    background:#00a8cc;
 }
 
 /* SECTION */
@@ -110,7 +105,7 @@ nav ul li a{
     text-align:center;
     margin-bottom:50px;
     font-size:35px;
-    color:#ff6b00;
+    color:#00d4ff;
 }
 
 .grid{
@@ -121,49 +116,30 @@ nav ul li a{
 
 .card{
     background:#1a1a1a;
-    padding:20px;
+    padding:30px;
     border-radius:15px;
-    transition:0.3s;
     text-align:center;
+    transition:0.3s;
 }
 
 .card:hover{
     transform:translateY(-5px);
 }
 
-.card img{
-    width:100%;
-    border-radius:15px;
-    margin-bottom:15px;
-}
-
-/* PROMO */
-.promo{
-    background:#ff6b00;
-    color:#fff;
-    text-align:center;
-    padding:60px 20px;
-    border-radius:20px;
-}
-
-/* ABOUT OWNER */
-.about{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-    align-items:center;
-}
-
-.about img{
-    width:100%;
-    border-radius:20px;
-}
-
-/* REVIEWS */
-.review{
+/* PROCESS */
+.process-step{
     background:#1a1a1a;
     padding:20px;
     border-radius:15px;
+}
+
+/* CTA */
+.cta{
+    background:#00d4ff;
+    color:#000;
+    text-align:center;
+    padding:60px 20px;
+    border-radius:20px;
 }
 
 /* CONTACT */
@@ -184,13 +160,13 @@ input, textarea{
 button{
     padding:12px 25px;
     border:none;
-    background:#ff6b00;
-    color:#fff;
+    background:#00d4ff;
+    color:#000;
     border-radius:50px;
     cursor:pointer;
+    font-weight:600;
 }
 
-/* FOOTER */
 footer{
     text-align:center;
     padding:20px;
@@ -198,10 +174,8 @@ footer{
     margin-top:50px;
 }
 
-/* RESPONSIVE */
 @media(max-width:768px){
     .hero h1{font-size:35px;}
-    .about{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -210,115 +184,90 @@ footer{
 
 <nav>
 <div class="container nav-container">
-<h2>YOUR BRAND</h2>
+<h2>YourAgency</h2>
 <ul>
-<li><a href="#menu">Menu</a></li>
-<li><a href="#why">Why Us</a></li>
-<li><a href="#promo">Promo</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#process">Process</a></li>
 <li><a href="#contact">Contact</a></li>
 </ul>
 </div>
 </nav>
 
 <section class="hero">
-<div class="hero-overlay">
-<h1>Authentic Filipino Comfort Food</h1>
-<p>Fresh. Affordable. Family-Friendly.</p>
-<a href="#" class="btn">Order Now</a>
-<a href="#" class="btn">Reserve Table</a>
+<div>
+<h1>I Build & Manage Websites for Small Businesses</h1>
+<p>You focus on running your business. I handle your website, updates, security, and online presence.</p>
+<a href="#contact" class="btn">Get Free Consultation</a>
+<a href="#services" class="btn">View Services</a>
 </div>
 </section>
 
-<section class="section" id="menu">
+<section class="section" id="services">
 <div class="container">
-<h2>Our Signature Dishes</h2>
+<h2>My Services</h2>
 <div class="grid">
 <div class="card">
-<img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d">
-<h3>Crispy Pata</h3>
-<p>Golden crispy outside, juicy inside.</p>
+<h3>Website Design</h3>
+<p>Modern, mobile-friendly websites tailored to your business.</p>
 </div>
 <div class="card">
-<img src="https://images.unsplash.com/photo-1604908554028-72f36b24c5da">
-<h3>Kare-Kare</h3>
-<p>Rich peanut sauce with fresh vegetables.</p>
+<h3>Monthly Website Management</h3>
+<p>I update your content, promos, photos, and maintain your site.</p>
 </div>
 <div class="card">
-<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
-<h3>Halo-Halo Special</h3>
-<p>Perfect sweet treat for hot days.</p>
+<h3>Business Optimization</h3>
+<p>Improve your online presence to attract more customers.</p>
+</div>
+<div class="card">
+<h3>Technical Support</h3>
+<p>Security updates, backups, and ongoing improvements.</p>
 </div>
 </div>
 </div>
 </section>
 
-<section class="section" id="why">
+<section class="section" id="process">
 <div class="container">
-<h2>Why Dine With Us</h2>
+<h2>How It Works</h2>
 <div class="grid">
-<div class="card"><h3>Fresh Ingredients Daily</h3></div>
-<div class="card"><h3>Affordable Family Meals</h3></div>
-<div class="card"><h3>Clean & Spacious Dining</h3></div>
-<div class="card"><h3>Friendly Staff</h3></div>
+<div class="process-step">
+<h3>1. Consultation</h3>
+<p>We discuss your business and goals.</p>
 </div>
+<div class="process-step">
+<h3>2. Website Creation</h3>
+<p>I design and develop your website professionally.</p>
 </div>
-</section>
-
-<section class="section" id="promo">
-<div class="container">
-<div class="promo">
-<h2>🎉 Birthday Promo</h2>
-<p>Enjoy 10% OFF when you dine with us on your birthday week!</p>
-<p><strong>Limited Time Offer</strong></p>
-<a href="#" class="btn">Claim Promo</a>
+<div class="process-step">
+<h3>3. Launch</h3>
+<p>Your website goes live and ready to attract customers.</p>
 </div>
+<div class="process-step">
+<h3>4. Ongoing Management</h3>
+<p>I handle updates and improvements monthly.</p>
 </div>
-</section>
-
-<section class="section">
-<div class="container about">
-<div>
-<img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
-</div>
-<div>
-<h2>Meet the Owner</h2>
-<p>At your brand, our mission is to serve affordable Filipino comfort food that brings families together. We believe every meal should feel like home.</p>
 </div>
 </div>
 </section>
 
 <section class="section">
 <div class="container">
-<h2>Customer Reviews</h2>
-<div class="grid">
-<div class="review">
-⭐⭐⭐⭐⭐<br>
-“Best Filipino food in town!”
-</div>
-<div class="review">
-⭐⭐⭐⭐⭐<br>
-“Affordable and delicious!”
-</div>
-<div class="review">
-⭐⭐⭐⭐⭐<br>
-“Perfect for family gatherings.”
-</div>
+<div class="cta">
+<h2>Let’s Grow Your Business Online</h2>
+<p>Professional website management for serious business owners.</p>
+<a href="#contact" class="btn">Start Today</a>
 </div>
 </div>
 </section>
 
 <section class="section" id="contact">
 <div class="container">
-<h2>Contact & Reservation</h2>
+<h2>Contact Me</h2>
 <div class="contact-box">
-<p>📍 Mamburao, Occidental Mindoro</p>
-<p>🕒 Open Daily: 9AM – 10PM</p>
-<p>📞 0912-345-6789</p>
-
 <form>
 <input type="text" placeholder="Your Name">
 <input type="email" placeholder="Your Email">
-<textarea placeholder="Reservation Details"></textarea>
+<textarea placeholder="Tell me about your business"></textarea>
 <button type="submit">Send Message</button>
 </form>
 </div>
@@ -326,7 +275,7 @@ footer{
 </section>
 
 <footer>
-<p>© 2026 RestaurantPro. Website Managed by SDDR Services.</p>
+<p>© 2026 YourAgency. All Rights Reserved.</p>
 </footer>
 
 </body>
