@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SDDR Luxury Agency</title>
+<title>SDDR Services</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
@@ -27,6 +27,7 @@ font-family:'Poppins',sans-serif;
 overflow-x:hidden;
 }
 
+/* COLORS */
 :root{
 --gold:#c6a55c;
 --soft:#141414;
@@ -62,18 +63,6 @@ animation:load 2s forwards;
 to{width:200px;}
 }
 
-/* CURSOR GLOW */
-.cursor-glow{
-position:fixed;
-width:300px;
-height:300px;
-border-radius:50%;
-background:radial-gradient(circle,rgba(198,165,92,.18),transparent 70%);
-pointer-events:none;
-transform:translate(-50%,-50%);
-z-index:-1;
-}
-
 /* NAV */
 nav{
 position:fixed;
@@ -95,7 +84,7 @@ color:var(--gold);
 
 nav ul{
 display:flex;
-gap:30px;
+gap:25px;
 list-style:none;
 }
 
@@ -103,11 +92,6 @@ nav a{
 text-decoration:none;
 color:#aaa;
 font-size:14px;
-transition:.3s;
-}
-
-nav a:hover{
-color:var(--gold);
 }
 
 /* HERO */
@@ -131,6 +115,7 @@ background:rgba(0,0,0,.75);
 .hero-content{
 position:relative;
 z-index:1;
+padding:20px;
 }
 
 .hero h1{
@@ -159,8 +144,6 @@ color:var(--gold);
 text-decoration:none;
 border-radius:50px;
 transition:.4s;
-position:relative;
-overflow:hidden;
 }
 
 .btn:hover{
@@ -178,39 +161,27 @@ text-align:center;
 font-family:'Playfair Display',serif;
 color:var(--gold);
 margin-bottom:60px;
-opacity:0;
-transform:translateY(40px);
-transition:1s;
 }
 
-.gold-line{
-width:0;
-height:2px;
-background:linear-gradient(to right,transparent,var(--gold),transparent);
-margin:0 auto 60px auto;
-transition:1.5s;
-}
-
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:40px;
+gap:30px;
 }
 
 /* CARDS */
 .card{
 background:var(--soft);
-padding:35px;
+padding:30px;
 border-radius:10px;
 border:1px solid rgba(198,165,92,.15);
-opacity:0;
-transform:translateY(40px);
-transition:.8s;
+transition:.6s;
 }
 
 .card:hover{
-border:1px solid var(--gold);
 transform:translateY(-6px);
+border:1px solid var(--gold);
 }
 
 /* PORTFOLIO */
@@ -229,7 +200,7 @@ filter:brightness(.6);
 .pricing-box{
 text-align:center;
 border:1px solid rgba(198,165,92,.3);
-padding:80px 40px;
+padding:60px 30px;
 border-radius:15px;
 max-width:800px;
 margin:auto;
@@ -240,42 +211,41 @@ backdrop-filter:blur(10px);
 .pricing-tag{
 font-size:36px;
 margin:30px 0;
-color:white;
 }
 
 /* MESSENGER */
 .floating-messenger{
 position:fixed;
-bottom:25px;
-right:25px;
-width:65px;
-height:65px;
+bottom:20px;
+right:20px;
+width:60px;
+height:60px;
 border-radius:50%;
 background:var(--gold);
 display:flex;
 align-items:center;
 justify-content:center;
 color:black;
-font-size:28px;
+font-size:26px;
 text-decoration:none;
-box-shadow:0 0 25px rgba(198,165,92,.6);
-z-index:999;
+box-shadow:0 0 25px rgba(198,165,92,.7);
+z-index:99999;
 }
 
 /* CHAT POPUP */
 .chat-popup{
 position:fixed;
-bottom:110px;
-right:25px;
+bottom:100px;
+right:20px;
 background:#141414;
 border:1px solid rgba(198,165,92,.3);
-padding:20px;
+padding:18px;
 border-radius:15px;
 max-width:260px;
 opacity:0;
-transform:translateY(20px);
-transition:.6s;
-z-index:998;
+transform:translateY(30px);
+transition:.5s;
+z-index:99998;
 }
 
 .chat-popup.show{
@@ -283,21 +253,28 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* ANIMATION */
-.active{
-opacity:1 !important;
-transform:translateY(0) !important;
+/* MOBILE */
+@media(max-width:768px){
+
+.hero h1{
+font-size:32px;
 }
 
-.gold-active{
-width:220px;
+nav ul{
+display:none;
 }
 
-footer{
-text-align:center;
-padding:40px;
-border-top:1px solid rgba(198,165,92,.2);
-color:#777;
+.floating-messenger{
+width:55px;
+height:55px;
+}
+
+.chat-popup{
+right:15px;
+bottom:85px;
+max-width:220px;
+}
+
 }
 
 </style>
@@ -310,8 +287,6 @@ color:#777;
 <div class="loader-text">SDDR Services</div>
 <div class="loader-line"></div>
 </div>
-
-<div class="cursor-glow"></div>
 
 <!-- NAV -->
 <nav>
@@ -334,38 +309,33 @@ color:#777;
 
 <!-- SERVICES -->
 <section class="section" id="services">
-<h2 class="reveal">Services</h2>
-<div class="gold-line"></div>
+<h2>Services</h2>
 
 <div class="grid">
-<div class="card reveal">Premium Design</div>
-<div class="card reveal">Monthly Management</div>
-<div class="card reveal">SEO Optimization</div>
-<div class="card reveal">Security</div>
+<div class="card">Premium Design</div>
+<div class="card">Monthly Management</div>
+<div class="card">SEO Optimization</div>
+<div class="card">Security</div>
 </div>
 </section>
 
 <!-- PORTFOLIO -->
 <section class="section" id="portfolio">
-<h2 class="reveal">Portfolio</h2>
-<div class="gold-line"></div>
+<h2>Portfolio</h2>
 
 <div class="grid portfolio">
-<img class="reveal" src="https://picsum.photos/500/400?1">
-<img class="reveal" src="https://picsum.photos/500/400?2">
-<img class="reveal" src="https://picsum.photos/500/400?3">
+<img src="https://picsum.photos/500/400?1">
+<img src="https://picsum.photos/500/400?2">
+<img src="https://picsum.photos/500/400?3">
 </div>
 </section>
 
 <!-- PRICING -->
 <section class="section" id="pricing">
-<h2 class="reveal">Private Investment</h2>
-<div class="gold-line"></div>
+<h2>Private Investment</h2>
 
-<div class="pricing-box reveal">
+<div class="pricing-box">
 <h3>BY INVITATION ONLY</h3>
-
-<p>Limited slots to maintain premium quality.</p>
 
 <div class="pricing-tag">Starting at ₱599</div>
 
@@ -375,11 +345,7 @@ color:#777;
 </div>
 </section>
 
-<footer>
-© 2026 SDDR Services
-</footer>
-
-<!-- MESSENGER -->
+<!-- CHAT POPUP -->
 <div class="chat-popup" id="chatPopup">
 <p>👋 Interested in working together? Message me on Messenger.</p>
 <a href="https://m.me/adssconnectt/" class="btn">Start Chat</a>
@@ -389,38 +355,17 @@ color:#777;
 <i class="fab fa-facebook-messenger"></i>
 </a>
 
+<footer style="text-align:center;padding:40px;color:#777">
+© 2026 SDDR Services
+</footer>
+
 <script>
 
 /* Loader */
 window.addEventListener("load",()=>{
-setTimeout(()=>document.getElementById("loader").style.display="none",2000);
-});
-
-/* Cursor Glow */
-const glow=document.querySelector(".cursor-glow");
-document.addEventListener("mousemove",e=>{
-glow.style.left=e.clientX+"px";
-glow.style.top=e.clientY+"px";
-});
-
-/* Scroll Reveal */
-const reveals=document.querySelectorAll(".reveal");
-const lines=document.querySelectorAll(".gold-line");
-
-window.addEventListener("scroll",()=>{
-let trigger=window.innerHeight*.85;
-
-reveals.forEach(el=>{
-if(el.getBoundingClientRect().top<trigger){
-el.classList.add("active");
-}
-});
-
-lines.forEach(line=>{
-if(line.getBoundingClientRect().top<trigger){
-line.classList.add("gold-active");
-}
-});
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+},2000);
 });
 
 /* Scarcity Counter */
@@ -438,6 +383,7 @@ if(!sessionStorage.getItem("chatShown")){
 setTimeout(()=>{
 document.getElementById("chatPopup").classList.add("show");
 },3000);
+
 sessionStorage.setItem("chatShown","true");
 }
 });
