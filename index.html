@@ -10,79 +10,47 @@
 
 <style>
 
+/* RESET */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
 font-family:'Poppins',sans-serif;
-color:#e5e5e5;
+background:#0b0b0b;
+color:#eee;
 overflow-x:hidden;
-
-/* Dark Luxury Animated Gradient */
-background: linear-gradient(-45deg,#000,#0b0b0b,#0f0f0f,#000);
-background-size:400% 400%;
-animation:gradientMove 18s ease infinite;
 }
 
-:root{
---gold:#c6a55c;
-}
-
-/* Animated Gradient */
-@keyframes gradientMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-
-/* LOADER */
-#loader{
+/* ANIMATED PREMIUM BACKGROUND */
+body::before{
+content:"";
 position:fixed;
 inset:0;
-background:black;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
+background: radial-gradient(circle at top,#0f0f0f,#000);
+z-index:-2;
 }
 
-.loader-text{
-font-family:'Playfair Display',serif;
-color:var(--gold);
-font-size:28px;
-letter-spacing:5px;
+body::after{
+content:"";
+position:fixed;
+inset:0;
+background:url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover;
+opacity:.08;
+z-index:-1;
 }
 
-.loader-line{
-width:0;
-height:2px;
-background:var(--gold);
-animation:load 2s forwards;
-}
-
-@keyframes load{
-to{width:200px;}
-}
-
-/* NAV */
+/* NAVBAR */
 nav{
 position:fixed;
 width:100%;
-padding:20px 8%;
+padding:18px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-
-/* Glass Nav */
-background:rgba(0,0,0,.4);
+background:rgba(0,0,0,.6);
 backdrop-filter:blur(20px);
 z-index:1000;
 border-bottom:1px solid rgba(198,165,92,.2);
@@ -90,7 +58,7 @@ border-bottom:1px solid rgba(198,165,92,.2);
 
 nav h2{
 font-family:'Playfair Display',serif;
-color:var(--gold);
+color:#c6a55c;
 }
 
 nav ul{
@@ -102,12 +70,12 @@ list-style:none;
 nav a{
 text-decoration:none;
 color:#aaa;
-transition:.3s;
 font-size:14px;
+transition:.3s;
 }
 
 nav a:hover{
-color:var(--gold);
+color:#c6a55c;
 }
 
 /* HERO */
@@ -117,73 +85,57 @@ display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
-position:relative;
+padding:20px;
 }
 
-.hero::after{
-content:'';
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.75);
-}
-
-.hero-content{
-position:relative;
-z-index:1;
-padding:30px;
-animation:fadeUp 1.5s ease;
-}
-
-/* Glass Hero Panel */
-.hero-content{
+.hero-box{
+max-width:800px;
+padding:60px 40px;
+border-radius:30px;
 background:rgba(255,255,255,.04);
 backdrop-filter:blur(25px);
-border-radius:30px;
 border:1px solid rgba(255,255,255,.08);
+animation:fadeUp 1.5s ease;
 }
 
 .hero h1{
 font-family:'Playfair Display',serif;
-font-size:56px;
+font-size:60px;
 margin-bottom:20px;
 }
 
 .hero span{
-color:var(--gold);
+color:#c6a55c;
 }
 
 .hero p{
-max-width:600px;
-margin:auto;
-color:#bbb;
+color:#aaa;
 margin-bottom:30px;
 }
 
 /* BUTTON */
 .btn{
 display:inline-block;
-padding:15px 40px;
+padding:15px 38px;
 border-radius:50px;
-border:1px solid var(--gold);
-color:var(--gold);
+background:#c6a55c;
+color:black;
 text-decoration:none;
-letter-spacing:1px;
-transition:.5s;
+font-weight:500;
+transition:.4s;
 }
 
 .btn:hover{
-background:var(--gold);
-color:black;
-box-shadow:0 0 30px rgba(198,165,92,.6);
 transform:translateY(-3px);
+box-shadow:0 0 30px rgba(198,165,92,.6);
 }
 
 /* SECTIONS */
 .section{
 padding:120px 8%;
 opacity:0;
-transform:translateY(60px);
-transition:1s ease;
+transform:translateY(70px);
+transition:1s;
 }
 
 .section.visible{
@@ -194,33 +146,36 @@ transform:translateY(0);
 .section h2{
 text-align:center;
 font-family:'Playfair Display',serif;
-color:var(--gold);
+color:#c6a55c;
 margin-bottom:60px;
 }
 
-/* GRID */
+/* SERVICES GRID */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 }
 
-/* GLASS CARDS */
 .card{
 padding:35px;
-border-radius:20px;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(18px);
+border-radius:25px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
 border:1px solid rgba(255,255,255,.08);
+text-align:center;
 transition:.6s;
-position:relative;
-overflow:hidden;
+}
+
+.card i{
+font-size:40px;
+color:#c6a55c;
+margin-bottom:20px;
 }
 
 .card:hover{
-transform:translateY(-10px) scale(1.03);
-border-color:var(--gold);
-box-shadow:0 0 35px rgba(198,165,92,.15);
+transform:translateY(-10px) scale(1.05);
+border-color:#c6a55c;
 }
 
 /* PRICING */
@@ -228,29 +183,28 @@ box-shadow:0 0 35px rgba(198,165,92,.15);
 text-align:center;
 padding:70px 40px;
 border-radius:30px;
-background:rgba(255,255,255,.04);
+background:rgba(255,255,255,.05);
 backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,.08);
 max-width:800px;
 margin:auto;
-animation:float 8s ease-in-out infinite;
+border:1px solid rgba(255,255,255,.08);
 }
 
 .pricing-tag{
 font-size:42px;
-color:var(--gold);
+color:#c6a55c;
 margin:30px 0;
 }
 
-/* MESSENGER */
-.floating-messenger{
+/* FLOATING MESSENGER */
+.messenger{
 position:fixed;
 bottom:25px;
 right:25px;
 width:65px;
 height:65px;
 border-radius:50%;
-background:var(--gold);
+background:#c6a55c;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -258,7 +212,7 @@ color:black;
 font-size:28px;
 box-shadow:0 0 40px rgba(198,165,92,.8);
 animation:pulse 2s infinite;
-z-index:99999;
+z-index:999;
 }
 
 /* CHAT POPUP */
@@ -266,14 +220,13 @@ z-index:99999;
 position:fixed;
 bottom:110px;
 right:25px;
-padding:20px;
-border-radius:20px;
 background:rgba(255,255,255,.05);
 backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,.1);
+padding:20px;
+border-radius:20px;
 max-width:260px;
 opacity:0;
-transform:translateY(30px);
+transform:translateY(40px);
 transition:.5s;
 }
 
@@ -286,17 +239,12 @@ transform:translateY(0);
 @keyframes fadeUp{
 from{
 opacity:0;
-transform:translateY(40px);
+transform:translateY(50px);
 }
 to{
 opacity:1;
 transform:translateY(0);
 }
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-12px);}
 }
 
 @keyframes pulse{
@@ -309,11 +257,15 @@ transform:translateY(0);
 @media(max-width:768px){
 
 .hero h1{
-font-size:34px;
+font-size:36px;
 }
 
 nav ul{
 display:none;
+}
+
+.hero-box{
+padding:40px 25px;
 }
 
 }
@@ -322,11 +274,6 @@ display:none;
 </head>
 
 <body>
-
-<div id="loader">
-<div class="loader-text">SDDR Services</div>
-<div class="loader-line"></div>
-</div>
 
 <nav>
 <h2>SDDR Services</h2>
@@ -337,21 +284,38 @@ display:none;
 </nav>
 
 <section class="hero">
-<div class="hero-content">
+<div class="hero-box">
 <h1>Luxury Digital Presence<br><span>For Serious Brands</span></h1>
-<p>Premium Web Design | Marketing Strategy | Business Growth Systems</p>
+<p>Premium web design • Marketing strategy • Business automation</p>
 <a href="https://web.facebook.com/sddrservices/" class="btn">Private Consultation</a>
 </div>
 </section>
 
 <section class="section" id="services">
-<h2>High Value Services</h2>
+<h2>Our Services</h2>
 
 <div class="grid">
-<div class="card">Premium Web Design</div>
-<div class="card">Conversion Marketing</div>
-<div class="card">SEO Optimization</div>
-<div class="card">Security Systems</div>
+
+<div class="card">
+<i class="fas fa-laptop-code"></i>
+<h3>Premium Web Design</h3>
+</div>
+
+<div class="card">
+<i class="fas fa-chart-line"></i>
+<h3>Marketing Conversion</h3>
+</div>
+
+<div class="card">
+<i class="fas fa-shield-alt"></i>
+<h3>Security Protection</h3>
+</div>
+
+<div class="card">
+<i class="fas fa-search"></i>
+<h3>SEO Optimization</h3>
+</div>
+
 </div>
 </section>
 
@@ -360,33 +324,26 @@ display:none;
 
 <div class="pricing-box">
 <h3>BY INVITATION ONLY</h3>
-<div class="pricing-tag">Starting at ₱599</div>
+<div class="pricing-tag">Starting ₱599</div>
 <p id="slots"></p>
 
-<a href="https://web.facebook.com/sddrservices/" class="btn">Request Proposal</a>
+<a href="#" class="btn">Request Proposal</a>
 </div>
 </section>
 
-<a href="https://m.me/adssconnectt/" class="floating-messenger">
+<div class="chat-popup" id="chatPopup">
+<p>👋 Message us on Messenger for priority service.</p>
+</div>
+
+<a class="messenger" href="https://m.me/adssconnectt/">
 <i class="fab fa-facebook-messenger"></i>
 </a>
 
-<div class="chat-popup" id="chatPopup">
-<p>👋 Want priority service? Message us now.</p>
-</div>
-
-<footer style="text-align:center;padding:40px;color:#777">
+<footer style="text-align:center;padding:50px;color:#666">
 © 2026 SDDR Services
 </footer>
 
 <script>
-
-/* Loader */
-window.addEventListener("load",()=>{
-setTimeout(()=>{
-document.getElementById("loader").style.display="none";
-},2000);
-});
 
 /* Scroll Reveal */
 const sections=document.querySelectorAll(".section");
@@ -397,7 +354,7 @@ if(entry.isIntersecting){
 entry.target.classList.add("visible");
 }
 });
-},{threshold:0.2});
+},{threshold:.2});
 
 sections.forEach(sec=>observer.observe(sec));
 
@@ -412,12 +369,9 @@ remaining>0
 
 /* Chat Popup */
 window.addEventListener("load",()=>{
-if(!sessionStorage.getItem("chatShown")){
 setTimeout(()=>{
 document.getElementById("chatPopup").classList.add("show");
 },3000);
-sessionStorage.setItem("chatShown","true");
-}
 });
 
 </script>
