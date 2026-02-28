@@ -24,6 +24,47 @@ color:white;
 overflow-x:hidden;
 }
 
+/* MESSENGER FLOATING BUTTON */
+.messenger-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:#c6a55c;
+display:flex;
+align-items:center;
+justify-content:center;
+color:black;
+font-size:28px;
+text-decoration:none;
+box-shadow:0 0 40px rgba(198,165,92,.8);
+animation:pulse 2s infinite;
+z-index:9999;
+transition:.4s;
+}
+
+.messenger-btn:hover{
+transform:scale(1.1);
+}
+
+/* PULSE ANIMATION */
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.15);}
+100%{transform:scale(1);}
+}
+
+/* MOBILE ADJUSTMENT */
+@media(max-width:768px){
+.messenger-btn{
+width:58px;
+height:58px;
+font-size:24px;
+}
+}
+
 /* ===== LOADER ===== */
 #loader{
 position:fixed;
@@ -432,6 +473,10 @@ particleContainer.appendChild(span);
 }
 
 </script>
+
+<a href="https://m.me/adssconnectt/" class="messenger-btn">
+<i class="fab fa-facebook-messenger"></i>
+</a>
 
 </body>
 </html>
