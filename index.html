@@ -19,80 +19,138 @@ box-sizing:border-box;
 
 body{
 font-family:'Poppins',sans-serif;
-background:#0a0a0a;
-color:#eee;
+background:black;
+color:white;
 overflow-x:hidden;
-scroll-behavior:smooth;
 }
 
-/* GOLD VARIABLES */
-:root{
---gold:#c6a55c;
-}
-
-/* ================= LOADING SCREEN ================= */
-
+/* ===== LOADER ===== */
 #loader{
 position:fixed;
 inset:0;
 background:black;
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
 z-index:9999;
 }
 
 .loader-text{
 font-family:'Playfair Display',serif;
-color:var(--gold);
-font-size:30px;
+color:#c6a55c;
+font-size:32px;
 letter-spacing:6px;
 }
 
-.loader-bar{
+.loader-line{
 width:0;
 height:2px;
-background:var(--gold);
-animation:load 2s forwards;
+background:#c6a55c;
+animation:loadLine 2s forwards;
 }
 
-@keyframes load{
+@keyframes loadLine{
 to{width:220px;}
 }
 
-/* ================= FLOATING GOLD PARTICLES ================= */
+/* ===== GOLD PARTICLES BACKGROUND ===== */
 
 .particles{
 position:fixed;
 inset:0;
-z-index:-1;
-overflow:hidden;
+z-index:-2;
 }
 
-.particle{
+.particles span{
 position:absolute;
 width:3px;
 height:3px;
-background:var(--gold);
+background:#c6a55c;
+opacity:.4;
 border-radius:50%;
-opacity:.3;
 animation:floatParticles linear infinite;
 }
 
 @keyframes floatParticles{
-0%{
+from{
 transform:translateY(0);
-opacity:.2;
+opacity:.6;
 }
-100%{
+to{
 transform:translateY(-120vh);
 opacity:0;
 }
 }
 
-/* ================= NAV ================= */
+/* ===== PARALLAX BACKGROUND ===== */
 
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover fixed;
+opacity:.25;
+z-index:-1;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at center,#000000cc,#000);
+z-index:-1;
+}
+
+.hero-box{
+padding:70px 40px;
+border-radius:30px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,.08);
+animation:fadeUp 1.5s ease;
+}
+
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:60px;
+}
+
+.hero span{
+color:#c6a55c;
+}
+
+.hero p{
+color:#aaa;
+margin:25px 0;
+}
+
+/* BUTTON */
+.btn{
+display:inline-block;
+padding:15px 40px;
+border-radius:50px;
+background:#c6a55c;
+color:black;
+text-decoration:none;
+transition:.4s;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 0 40px rgba(198,165,92,.8);
+}
+
+/* NAV */
 nav{
 position:fixed;
 width:100%;
@@ -100,14 +158,14 @@ padding:20px 8%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:rgba(0,0,0,.5);
+background:rgba(0,0,0,.6);
 backdrop-filter:blur(20px);
 z-index:1000;
 }
 
 nav h2{
+color:#c6a55c;
 font-family:'Playfair Display',serif;
-color:var(--gold);
 }
 
 nav ul{
@@ -119,84 +177,20 @@ list-style:none;
 nav a{
 color:#aaa;
 text-decoration:none;
-transition:.3s;
 font-size:14px;
+transition:.3s;
 }
 
 nav a:hover{
-color:var(--gold);
+color:#c6a55c;
 }
 
-/* ================= HERO ================= */
-
-.hero{
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-position:relative;
-}
-
-.hero::after{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,.95));
-}
-
-.hero-content{
-position:relative;
-z-index:2;
-padding:40px;
-max-width:900px;
-border-radius:35px;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(25px);
-animation:fadeUp 1.5s ease;
-}
-
-.hero h1{
-font-family:'Playfair Display',serif;
-font-size:65px;
-margin-bottom:20px;
-}
-
-.hero span{
-color:var(--gold);
-}
-
-.hero p{
-color:#aaa;
-margin-bottom:30px;
-}
-
-/* ================= BUTTON ================= */
-
-.btn{
-display:inline-block;
-padding:15px 40px;
-border-radius:50px;
-border:1px solid var(--gold);
-color:var(--gold);
-text-decoration:none;
-transition:.5s;
-}
-
-.btn:hover{
-background:var(--gold);
-color:black;
-box-shadow:0 0 30px rgba(198,165,92,.6);
-}
-
-/* ================= SECTIONS ================= */
-
+/* SECTIONS */
 .section{
 padding:140px 8%;
 opacity:0;
-transform:translateY(70px);
+transform:translateY(80px);
 transition:1.2s ease;
-position:relative;
 }
 
 .section.visible{
@@ -204,124 +198,89 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* Gold Line Reveal */
 .section h2{
-font-family:'Playfair Display',serif;
-color:var(--gold);
 text-align:center;
+color:#c6a55c;
+font-family:'Playfair Display',serif;
 margin-bottom:70px;
 position:relative;
 }
 
+/* GOLD LINE REVEAL */
 .section h2::after{
 content:"";
 display:block;
-width:120px;
 height:2px;
-background:var(--gold);
-margin:20px auto;
-animation:lineReveal 2s ease;
+width:0;
+background:#c6a55c;
+margin:15px auto;
+transition:1.2s;
 }
 
-@keyframes lineReveal{
-from{width:0}
-to{width:120px}
+.section.visible h2::after{
+width:120px;
 }
 
-/* ================= PARALLAX EFFECT ================= */
-
-.parallax{
-background:url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover fixed;
-padding:150px 0;
-}
-
-/* ================= GRID ================= */
-
+/* GRID */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 }
 
-/* ================= PORTFOLIO ================= */
-
+/* PORTFOLIO */
 .portfolio-card{
-border-radius:25px;
+height:250px;
+border-radius:20px;
 overflow:hidden;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.08);
-transition:.6s;
 position:relative;
 }
 
 .portfolio-card img{
 width:100%;
-height:260px;
+height:100%;
 object-fit:cover;
 transition:.6s;
 }
 
-.portfolio-card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 40px rgba(198,165,92,.25);
-}
-
 .portfolio-card:hover img{
-transform:scale(1.1);
-filter:brightness(.7);
+transform:scale(1.2);
+filter:brightness(.5);
 }
 
-.portfolio-card h3{
-padding:20px;
-text-align:center;
-}
-
-/* ================= PRICING ================= */
-
-.pricing-box{
-max-width:800px;
-margin:auto;
-padding:80px 40px;
-text-align:center;
-border-radius:30px;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,.08);
-}
-
-.pricing-tag{
-font-size:45px;
-color:var(--gold);
-margin:30px 0;
-}
-
-/* ================= MESSENGER ================= */
-
-.messenger{
-position:fixed;
-bottom:25px;
-right:25px;
-width:65px;
-height:65px;
-border-radius:50%;
-background:var(--gold);
+.portfolio-card::after{
+content:"View Project";
+position:absolute;
+inset:0;
 display:flex;
 align-items:center;
 justify-content:center;
-color:black;
-font-size:28px;
-box-shadow:0 0 40px rgba(198,165,92,.8);
-z-index:999;
-animation:pulse 2s infinite;
+font-size:22px;
+opacity:0;
+transition:.5s;
 }
 
-/* ANIMATIONS */
+.portfolio-card:hover::after{
+opacity:1;
+}
 
+/* PRICING */
+.pricing-box{
+max-width:800px;
+margin:auto;
+padding:70px 40px;
+border-radius:30px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(25px);
+text-align:center;
+border:1px solid rgba(255,255,255,.08);
+}
+
+/* FLOAT ANIMATIONS */
 @keyframes fadeUp{
 from{
 opacity:0;
-transform:translateY(60px);
+transform:translateY(40px);
 }
 to{
 opacity:1;
@@ -329,24 +288,15 @@ transform:translateY(0);
 }
 }
 
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.1)}
-100%{transform:scale(1)}
-}
-
 /* MOBILE */
-
 @media(max-width:768px){
-
 .hero h1{
-font-size:38px;
+font-size:36px;
 }
 
 nav ul{
 display:none;
 }
-
 }
 
 </style>
@@ -357,12 +307,13 @@ display:none;
 <!-- LOADER -->
 <div id="loader">
 <div class="loader-text">SDDR Services</div>
-<div class="loader-bar"></div>
+<div class="loader-line"></div>
 </div>
 
-<!-- GOLD PARTICLES -->
+<!-- PARTICLES -->
 <div class="particles" id="particles"></div>
 
+<!-- NAV -->
 <nav>
 <h2>SDDR Services</h2>
 <ul>
@@ -372,69 +323,77 @@ display:none;
 </ul>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-<div class="hero-content">
+<div class="hero-box">
 <h1>Luxury Digital Presence<br><span>For Serious Brands</span></h1>
-<p>Premium Web Design • Marketing Strategy • Business Growth</p>
+<p>Premium Design • Marketing Strategy • Business Growth</p>
 <a href="#" class="btn">Private Consultation</a>
 </div>
 </section>
 
+<!-- SERVICES -->
 <section class="section" id="services">
-<h2>Services</h2>
+<h2>Our Services</h2>
 
 <div class="grid">
-<div class="portfolio-card">
-<h3><i class="fas fa-laptop-code"></i> Premium Web Design</h3>
+
+<div class="card">
+<h3>Premium Web Design</h3>
 </div>
 
-<div class="portfolio-card">
-<h3><i class="fas fa-chart-line"></i> Marketing Strategy</h3>
+<div class="card">
+<h3>Marketing Strategy</h3>
 </div>
 
-<div class="portfolio-card">
-<h3><i class="fas fa-shield-alt"></i> Security Optimization</h3>
+<div class="card">
+<h3>SEO Optimization</h3>
+</div>
+
+<div class="card">
+<h3>Security Systems</h3>
 </div>
 
 </div>
 </section>
 
-<section class="section parallax" id="portfolio">
+<!-- PORTFOLIO -->
+<section class="section" id="portfolio">
 <h2>Portfolio Showcase</h2>
 
 <div class="grid">
 
 <div class="portfolio-card">
 <img src="https://picsum.photos/500/400?1">
-<h3>Project Design</h3>
 </div>
 
 <div class="portfolio-card">
 <img src="https://picsum.photos/500/400?2">
-<h3>Business Website</h3>
 </div>
 
 <div class="portfolio-card">
 <img src="https://picsum.photos/500/400?3">
-<h3>Marketing Landing</h3>
 </div>
 
 </div>
 </section>
 
+<!-- PRICING -->
 <section class="section" id="pricing">
 <h2>Private Investment</h2>
 
 <div class="pricing-box">
 <h3>BY INVITATION ONLY</h3>
-<div class="pricing-tag">Starting ₱599</div>
+<h1 style="color:#c6a55c;margin:30px 0;">₱599 Starting</h1>
 <p>Limited premium slots available</p>
+<br>
+<a href="#" class="btn">Request Proposal</a>
 </div>
 </section>
 
-<a class="messenger" href="#">
-<i class="fab fa-facebook-messenger"></i>
-</a>
+<footer style="text-align:center;padding:60px;color:#666">
+© 2026 SDDR Services
+</footer>
 
 <script>
 
@@ -458,16 +417,18 @@ entry.target.classList.add("visible");
 
 sections.forEach(sec=>observer.observe(sec));
 
-/* Gold Particles Generator */
-const particles=document.getElementById("particles");
+/* GOLD PARTICLES */
+const particleContainer=document.getElementById("particles");
 
 for(let i=0;i<40;i++){
-let p=document.createElement("div");
-p.className="particle";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(5+Math.random()*15)+"s";
-p.style.opacity=Math.random();
-particles.appendChild(p);
+let span=document.createElement("span");
+
+span.style.left=Math.random()*100+"vw";
+span.style.top=Math.random()*100+"vh";
+span.style.animationDuration=(10+Math.random()*20)+"s";
+span.style.opacity=Math.random();
+
+particleContainer.appendChild(span);
 }
 
 </script>
