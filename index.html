@@ -3,236 +3,235 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YourAgency</title>
+<title>SDDR Services | Luxury Web Solutions</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-    background:#0e0e0e;
-    color:#fff;
+background:#0b0b0b;
+color:#e5e5e5;
+font-family:'Poppins',sans-serif;
+line-height:1.7;
 }
 
-.payment-box{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:30px;
-align-items:center;
+/* GOLD ACCENT */
+:root{
+--gold:#c6a55c;
+--dark:#0b0b0b;
+--soft:#141414;
 }
 
-.gcash-card{
-background:#1a1a1a;
-padding:30px;
-border-radius:20px;
-text-align:center;
-}
-
-.gcash-card i{
-font-size:40px;
-color:#00e0ff;
-margin-bottom:15px;
-}
-
-.qr{
-width:200px;
-margin:20px 0;
-border-radius:15px;
-}
-
-.proof-form{
-background:#1a1a1a;
-padding:30px;
-border-radius:20px;
-}
-
-.proof-form input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:10px;
-}
-
-.proof-form button{
-padding:12px 25px;
-border:none;
-background:#00e0ff;
-color:#000;
-border-radius:50px;
-font-weight:600;
-cursor:pointer;
-}
-
-/* NAVBAR */
+/* NAV */
 nav{
-    position:fixed;
-    width:100%;
-    background:rgba(0,0,0,0.8);
-    backdrop-filter:blur(10px);
-    padding:15px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
+position:fixed;
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,0.85);
+backdrop-filter:blur(8px);
+z-index:1000;
+border-bottom:1px solid rgba(198,165,92,0.15);
 }
 
 nav h2{
-    color:#00e0ff;
+font-family:'Playfair Display',serif;
+font-weight:600;
+color:var(--gold);
+letter-spacing:1px;
 }
 
 nav ul{
-    display:flex;
-    list-style:none;
-    gap:20px;
+display:flex;
+gap:30px;
+list-style:none;
 }
 
 nav ul li a{
-    color:#fff;
-    text-decoration:none;
-    font-size:14px;
+text-decoration:none;
+color:#aaa;
+font-size:14px;
+transition:0.3s;
+}
+
+nav ul li a:hover{
+color:var(--gold);
 }
 
 /* HERO */
 .hero{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:0 20px;
-    background:linear-gradient(135deg,#001f2f,#003c5f);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:0 20px;
+background:linear-gradient(to bottom,#0b0b0b,#111);
 }
 
 .hero h1{
-    font-size:42px;
-    margin-bottom:20px;
-    animation:fadeDown 1s ease;
+font-family:'Playfair Display',serif;
+font-size:48px;
+font-weight:600;
+color:#fff;
+margin-bottom:20px;
+}
+
+.hero span{
+color:var(--gold);
 }
 
 .hero p{
-    font-size:18px;
-    margin-bottom:30px;
-    opacity:0.9;
-    animation:fadeUp 1.2s ease;
+max-width:600px;
+margin:auto;
+color:#bbb;
+margin-bottom:35px;
 }
 
 .btn{
-    display:inline-block;
-    padding:12px 28px;
-    background:#00e0ff;
-    color:#000;
-    border-radius:50px;
-    font-weight:600;
-    text-decoration:none;
-    transition:0.3s;
+display:inline-block;
+padding:12px 32px;
+border:1px solid var(--gold);
+color:var(--gold);
+text-decoration:none;
+border-radius:50px;
+transition:0.3s;
+font-size:14px;
+letter-spacing:1px;
 }
 
 .btn:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 20px #00e0ff;
+background:var(--gold);
+color:#000;
 }
 
 /* SECTIONS */
 .section{
-    padding:80px 8%;
+padding:100px 8%;
 }
 
 .section h2{
-    text-align:center;
-    margin-bottom:50px;
-    font-size:30px;
-    color:#00e0ff;
+text-align:center;
+font-family:'Playfair Display',serif;
+font-size:32px;
+margin-bottom:60px;
+color:var(--gold);
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:40px;
 }
 
 .card{
-    background:#1a1a1a;
-    padding:30px;
-    border-radius:20px;
-    text-align:center;
-    transition:0.3s;
-    opacity:0;
-    transform:translateY(30px);
+background:var(--soft);
+padding:35px;
+border-radius:10px;
+border:1px solid rgba(198,165,92,0.1);
+transition:0.3s;
 }
 
-.card i{
-    font-size:40px;
-    margin-bottom:15px;
-    color:#00e0ff;
+.card h3{
+font-weight:500;
+margin-bottom:12px;
+color:#fff;
+}
+
+.card p{
+color:#aaa;
+font-size:14px;
 }
 
 .card:hover{
-    transform:translateY(-5px);
+border:1px solid var(--gold);
+transform:translateY(-6px);
 }
 
 /* CTA */
 .cta{
-    background:#00e0ff;
-    color:#000;
-    text-align:center;
-    padding:60px 20px;
-    border-radius:20px;
+text-align:center;
+border:1px solid var(--gold);
+padding:70px 20px;
+border-radius:15px;
+}
+
+.cta h2{
+font-family:'Playfair Display',serif;
+color:#fff;
+margin-bottom:15px;
+}
+
+.cta p{
+color:#bbb;
+margin-bottom:30px;
 }
 
 /* CONTACT */
+form{
+max-width:600px;
+margin:auto;
+}
+
 form input, form textarea{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border:none;
-    border-radius:10px;
+width:100%;
+padding:15px;
+margin:12px 0;
+background:#111;
+border:1px solid rgba(198,165,92,0.2);
+color:#fff;
+border-radius:8px;
+}
+
+form input:focus, form textarea:focus{
+outline:none;
+border:1px solid var(--gold);
 }
 
 form button{
-    padding:12px 25px;
-    border:none;
-    background:#00e0ff;
-    color:#000;
-    border-radius:50px;
-    font-weight:600;
-    cursor:pointer;
+padding:12px 32px;
+background:none;
+border:1px solid var(--gold);
+color:var(--gold);
+border-radius:50px;
+cursor:pointer;
+transition:0.3s;
+}
+
+form button:hover{
+background:var(--gold);
+color:#000;
 }
 
 /* FOOTER */
 footer{
-    text-align:center;
-    padding:20px;
-    background:#000;
+text-align:center;
+padding:30px;
+border-top:1px solid rgba(198,165,92,0.15);
+color:#777;
+font-size:13px;
 }
 
-/* ANIMATIONS */
-@keyframes fadeDown{
-    from{opacity:0; transform:translateY(-30px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
-@keyframes fadeUp{
-    from{opacity:0; transform:translateY(30px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
-/* MOBILE NAV */
+/* MOBILE */
 @media(max-width:768px){
-    nav ul{
-        display:none;
-    }
+nav ul{
+display:none;
+}
+.hero h1{
+font-size:32px;
+}
 }
 </style>
 </head>
@@ -240,7 +239,7 @@ footer{
 <body>
 
 <nav>
-<h2>SDDR Services</h2>
+<h2>SDDR</h2>
 <ul>
 <li><a href="#services">Services</a></li>
 <li><a href="#process">Process</a></li>
@@ -250,111 +249,76 @@ footer{
 
 <section class="hero">
 <div>
-<h1>I Build & Manage Websites for Small Businesses</h1>
-<p>You focus on your operations. I handle your website, updates, security, and online presence.</p>
-<a href="#contact" class="btn">Get Free Consultation</a>
+<h1>Luxury Digital Presence <br><span>For Serious Businesses</span></h1>
+<p>I design and manage premium websites that reflect professionalism, credibility, and class.</p>
+<a href="#contact" class="btn">Book Private Consultation</a>
 </div>
 </section>
 
 <section class="section" id="services">
-<h2>My Services</h2>
+<h2>Services</h2>
 <div class="grid">
+
 <div class="card">
-<i class="fas fa-laptop-code"></i>
-<h3>Website Design</h3>
-<p>Modern, responsive websites built to convert visitors into customers.</p>
+<h3>Premium Website Design</h3>
+<p>Minimalist, elegant, high-converting websites built for authority.</p>
 </div>
 
 <div class="card">
-<i class="fas fa-sync-alt"></i>
 <h3>Monthly Management</h3>
-<p>Content updates, promo changes, and regular maintenance.</p>
+<p>Discreet updates, maintenance, and content refinement.</p>
 </div>
 
 <div class="card">
-<i class="fas fa-chart-line"></i>
-<h3>Business Optimization</h3>
-<p>Improve visibility and increase customer inquiries.</p>
+<h3>Optimization</h3>
+<p>Strategic improvements to increase inquiries and conversions.</p>
 </div>
 
 <div class="card">
-<i class="fas fa-shield-alt"></i>
-<h3>Security & Support</h3>
-<p>Backups, updates, and technical support handled for you.</p>
+<h3>Security & Stability</h3>
+<p>Reliable backups, protection, and continuous monitoring.</p>
 </div>
+
 </div>
 </section>
 
 <section class="section" id="process">
-<h2>How It Works</h2>
+<h2>Process</h2>
 <div class="grid">
+
 <div class="card">
-<i class="fas fa-comments"></i>
-<h3>Consultation</h3>
-<p>We discuss your business goals and needs.</p>
+<h3>01 Consultation</h3>
+<p>Understanding your brand and business goals.</p>
 </div>
 
 <div class="card">
-<i class="fas fa-pencil-ruler"></i>
-<h3>Design & Build</h3>
-<p>I create your professional website.</p>
+<h3>02 Design & Build</h3>
+<p>Crafting a refined and professional digital presence.</p>
 </div>
 
 <div class="card">
-<i class="fas fa-rocket"></i>
-<h3>Launch</h3>
-<p>Your website goes live and ready for customers.</p>
+<h3>03 Launch</h3>
+<p>Your website goes live with precision and polish.</p>
 </div>
 
 <div class="card">
-<i class="fas fa-cogs"></i>
-<h3>Ongoing Support</h3>
-<p>I manage and update everything monthly.</p>
+<h3>04 Ongoing Care</h3>
+<p>Continuous refinement and monthly management.</p>
 </div>
+
 </div>
 </section>
 
 <section class="section">
 <div class="cta">
-<h2>Let’s Grow Your Business Online</h2>
-<p>Professional website management for serious business owners.</p>
-<a href="#contact" class="btn">Start Today</a>
-</div>
-</section>
-
-<section class="section" id="payment">
-<h2>Secure Your Slot</h2>
-
-<div class="payment-box">
-
-<div class="gcash-card">
-<h3><i class="fas fa-wallet"></i> Pay via GCash</h3>
-
-<img src="your-gcash-qr.png" alt="GCash QR" class="qr">
-
-<p>Scan the QR code using your GCash app and send payment.</p>
-
-<p><strong>GCash Name:</strong> Your Full Name</p>
-<p><strong>GCash Number:</strong> 09XXXXXXXXX</p>
-
-</div>
-
-<form class="proof-form">
-<h3>Submit Payment Proof</h3>
-
-<input type="text" placeholder="Your Full Name" required>
-<input type="email" placeholder="Your Email" required>
-<input type="text" placeholder="Reference Number" required>
-<input type="file" required>
-
-<button type="submit">Submit Payment</button>
-</form>
-
+<h2>Elevate Your Brand Online</h2>
+<p>Professional. Refined. Timeless.</p>
+<a href="#contact" class="btn">Start Your Project</a>
 </div>
 </section>
 
 <section class="section" id="contact">
-<h2>Contact Me</h2>
+<h2>Contact</h2>
 <form>
 <input type="text" placeholder="Your Name">
 <input type="email" placeholder="Your Email">
@@ -366,24 +330,6 @@ footer{
 <footer>
 <p>© 2026 SDDR Services. All Rights Reserved.</p>
 </footer>
-
-<script>
-const cards = document.querySelectorAll('.card');
-
-window.addEventListener('scroll', () => {
-    const triggerBottom = window.innerHeight * 0.85;
-
-    cards.forEach(card => {
-        const cardTop = card.getBoundingClientRect().top;
-
-        if(cardTop < triggerBottom){
-            card.style.opacity = 1;
-            card.style.transform = "translateY(0)";
-            card.style.transition = "all 0.6s ease";
-        }
-    });
-});
-</script>
 
 </body>
 </html>
