@@ -1,38 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDDR Services</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:black;
+color:white;
+overflow-x:hidden;
+}
+
+/* SCROLL PROGRESS BAR */
+
+#progressBar{
+position:fixed;
+top:0;
+left:0;
+height:3px;
+width:0%;
+background:#c6a55c;
+z-index:9999;
+box-shadow:0 0 10px #c6a55c;
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+width:100%;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(20px);
+z-index:1000;
+}
+
+nav h2{
+color:#c6a55c;
+font-family:'Playfair Display',serif;
+}
+
+/* NAV LINKS */
+
+.nav-links{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+color:#aaa;
+text-decoration:none;
+font-size:14px;
+transition:.3s;
+}
+
+nav a:hover{
+color:#c6a55c;
+}
+
+/* MOBILE MENU */
+
+.menu-btn{
+display:none;
+font-size:22px;
+cursor:pointer;
+color:#c6a55c;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover fixed;
+opacity:.25;
+z-index:-1;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at center,#000000cc,#000);
+z-index:-1;
+}
+
+.hero-box{
+padding:70px 40px;
+border-radius:30px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,.08);
+animation:fadeUp 1.5s ease;
+}
+
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:60px;
+}
+
+.hero span{
+color:#c6a55c;
+}
+
+.hero p{
+color:#aaa;
+margin:25px 0;
+}
+
+/* BUTTON */
+
+.btn{
+display:inline-block;
+padding:15px 40px;
+border-radius:50px;
+background:#c6a55c;
+color:black;
+text-decoration:none;
+transition:.4s;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 0 40px rgba(198,165,92,.8);
+}
+
+/* SECTIONS */
+
+.section{
+padding:140px 8%;
+opacity:0;
+transform:translateY(80px);
+transition:1.2s ease;
+}
+
+.section.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+.section h2{
+text-align:center;
+color:#c6a55c;
+font-family:'Playfair Display',serif;
+margin-bottom:70px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+
+.card{
+padding:40px;
+border-radius:20px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.08);
+text-align:center;
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 40px rgba(198,165,92,.3);
+}
+
+/* WHY CHOOSE US */
+
+.feature{
+padding:50px;
+text-align:center;
+border-radius:25px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.feature i{
+font-size:32px;
+color:#c6a55c;
+margin-bottom:20px;
+}
+
+/* SCARCITY SECTION */
+
+.scarcity{
+text-align:center;
+font-size:22px;
+color:#c6a55c;
+margin-top:40px;
+}
+
+/* PRICING */
+
+.pricing-box{
+max-width:800px;
+margin:auto;
+padding:70px 40px;
+border-radius:30px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(25px);
+text-align:center;
+border:1px solid rgba(255,255,255,.08);
+}
+
+/* PARTICLES */
+
+.particles{
+position:fixed;
+inset:0;
+z-index:-2;
+}
+
+.particles span{
+position:absolute;
+width:3px;
+height:3px;
+background:#c6a55c;
+opacity:.5;
+border-radius:50%;
+animation:floatParticles linear infinite;
+}
+
+@keyframes floatParticles{
+from{
+transform:translateY(0);
+}
+to{
+transform:translateY(-120vh);
+}
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* MESSENGER */
+
+.messenger-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:#c6a55c;
+display:flex;
+align-items:center;
+justify-content:center;
+color:black;
+font-size:28px;
+text-decoration:none;
+box-shadow:0 0 40px rgba(198,165,92,.8);
+z-index:9999;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.menu-btn{
+display:block;
+}
+
+.nav-links{
+position:absolute;
+top:70px;
+right:0;
+background:black;
+flex-direction:column;
+width:200px;
+padding:20px;
+display:none;
+}
+
+.nav-links.active{
+display:flex;
+}
+
+.hero h1{
+font-size:36px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="progressBar"></div>
+
+<div class="particles" id="particles"></div>
+
+<nav>
+
+<h2>SDDR Services</h2>
+
+<div class="menu-btn">
+<i class="fas fa-bars"></i>
+</div>
+
+<ul class="nav-links">
+<li><a href="#services">Services</a></li>
+<li><a href="#why">Why Us</a></li>
+<li><a href="#pricing">Pricing</a></li>
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<div class="hero-box">
+
+<h1>Luxury Digital Presence<br><span>For Serious Brands</span></h1>
+
+<p>Premium Design • Marketing Strategy • Business Growth</p>
+
+<a href="https://web.facebook.com/sddrservices" class="btn">Private Consultation</a>
+
+</div>
+
+</section>
+
+<section class="section" id="services">
+
+<h2>Our Services</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Premium Web Design</h3>
+</div>
+
+<div class="card">
+<h3>Marketing Strategy</h3>
+</div>
+
+<div class="card">
+<h3>SEO Optimization</h3>
+</div>
+
+<div class="card">
+<h3>Security Systems</h3>
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="why">
+
+<h2>Why Choose Us</h2>
+
+<div class="grid">
+
+<div class="feature">
+<i class="fas fa-gem"></i>
+<h3>Premium Design</h3>
+<p>Luxury level websites designed to impress clients.</p>
+</div>
+
+<div class="feature">
+<i class="fas fa-rocket"></i>
+<h3>Business Growth Focus</h3>
+<p>Not just websites — we build digital systems that generate leads.</p>
+</div>
+
+<div class="feature">
+<i class="fas fa-shield-alt"></i>
+<h3>Secure Systems</h3>
+<p>Advanced protection and reliable website performance.</p>
+</div>
+
+<div class="feature">
+<i class="fas fa-crown"></i>
+<h3>Exclusive Clients</h3>
+<p>We only accept limited businesses each month.</p>
+</div>
+
+</div>
+
+<div class="scarcity">
+⚜ Only <b>2 client slots</b> remaining this month
+</div>
+
+</section>
+
+<section class="section" id="pricing">
+
+<h2>Private Investment</h2>
+
+<div class="pricing-box">
+
+<h3>BY INVITATION ONLY</h3>
+
+<h1 style="color:#c6a55c;margin:30px 0;">₱599 Starting</h1>
+
+<p>Limited premium slots available</p>
+
+<br>
+
+<a href="https://web.facebook.com/sddrservices" class="btn">Request Proposal</a>
+
+</div>
+
+</section>
+
+<footer style="text-align:center;padding:60px;color:#666">
+© 2026 SDDR Services
+</footer>
+
+<a href="https://web.facebook.com/sddrservices" class="messenger-btn">
+<i class="fab fa-facebook-messenger"></i>
+</a>
+
 <script>
 
-/* CLIENT ACTIVITY */
+/* MOBILE MENU */
 
-const messages = [
-"A restaurant owner just requested a website",
-"A clinic owner booked a consultation",
-"A clothing brand started a project",
-"A cafe owner requested a website quote",
-"A real estate business requested a proposal"
-];
+document.querySelector(".menu-btn").onclick=function(){
+document.querySelector(".nav-links").classList.toggle("active")
+}
 
-function showActivity(){
+/* SCROLL REVEAL */
 
-const popup=document.getElementById("activityPopup");
-const text=document.getElementById("activityText");
+const sections=document.querySelectorAll(".section")
 
-text.innerText=messages[Math.floor(Math.random()*messages.length)];
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible")
+}
+})
+},{threshold:.2})
 
-popup.style.display="block";
+sections.forEach(sec=>observer.observe(sec))
 
-setTimeout(()=>{
-popup.style.display="none";
-},5000);
+/* SCROLL PROGRESS */
+
+window.onscroll=function(){
+
+let winScroll=document.body.scrollTop||document.documentElement.scrollTop
+
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight
+
+let scrolled=(winScroll/height)*100
+
+document.getElementById("progressBar").style.width=scrolled+"%"
 
 }
 
-setInterval(showActivity,15000);
+/* PARTICLES */
 
-/* MESSENGER LEAD PROMPT */
+const container=document.getElementById("particles")
 
-setTimeout(()=>{
-if(confirm("Would you like a website for your business?")){
-window.location="https://web.facebook.com/sddrservices"
+for(let i=0;i<50;i++){
+
+let span=document.createElement("span")
+
+span.style.left=Math.random()*100+"vw"
+span.style.top=Math.random()*100+"vh"
+span.style.animationDuration=(10+Math.random()*20)+"s"
+
+container.appendChild(span)
+
 }
-},8000)
 
 </script>
+
+</body>
+</html>
