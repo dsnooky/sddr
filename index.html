@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SDDR Services</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -11,10 +12,12 @@
 <style>
 
 /* RESET */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
+cursor:none;
 }
 
 body{
@@ -22,9 +25,29 @@ font-family:'Poppins',sans-serif;
 background:black;
 color:white;
 overflow-x:hidden;
+animation:fadePage 1.2s;
 }
 
-/* SCROLL PROGRESS BAR */
+@keyframes fadePage{
+from{opacity:0}
+to{opacity:1}
+}
+
+/* GOLD CURSOR */
+
+.cursor{
+position:fixed;
+width:20px;
+height:20px;
+border-radius:50%;
+background:#c6a55c;
+pointer-events:none;
+mix-blend-mode:screen;
+box-shadow:0 0 20px #c6a55c;
+z-index:9999;
+}
+
+/* SCROLL BAR */
 
 #progressBar{
 position:fixed;
@@ -56,8 +79,6 @@ color:#c6a55c;
 font-family:'Playfair Display',serif;
 }
 
-/* NAV LINKS */
-
 .nav-links{
 display:flex;
 gap:25px;
@@ -75,13 +96,11 @@ nav a:hover{
 color:#c6a55c;
 }
 
-/* MOBILE MENU */
-
 .menu-btn{
 display:none;
+color:#c6a55c;
 font-size:22px;
 cursor:pointer;
-color:#c6a55c;
 }
 
 /* HERO */
@@ -101,14 +120,6 @@ position:absolute;
 inset:0;
 background:url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover fixed;
 opacity:.25;
-z-index:-1;
-}
-
-.hero::after{
-content:"";
-position:absolute;
-inset:0;
-background:radial-gradient(circle at center,#000000cc,#000);
 z-index:-1;
 }
 
@@ -152,7 +163,7 @@ transform:translateY(-3px);
 box-shadow:0 0 40px rgba(198,165,92,.8);
 }
 
-/* SECTIONS */
+/* SECTION */
 
 .section{
 padding:140px 8%;
@@ -173,6 +184,8 @@ font-family:'Playfair Display',serif;
 margin-bottom:70px;
 }
 
+/* GRID */
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -183,7 +196,6 @@ gap:30px;
 padding:40px;
 border-radius:20px;
 background:rgba(255,255,255,.05);
-backdrop-filter:blur(20px);
 border:1px solid rgba(255,255,255,.08);
 text-align:center;
 transition:.4s;
@@ -191,10 +203,10 @@ transition:.4s;
 
 .card:hover{
 transform:translateY(-10px);
-box-shadow:0 0 40px rgba(198,165,92,.3);
+box-shadow:0 0 40px rgba(198,165,92,.4);
 }
 
-/* WHY CHOOSE US */
+/* FEATURES */
 
 .feature{
 padding:50px;
@@ -210,13 +222,25 @@ color:#c6a55c;
 margin-bottom:20px;
 }
 
-/* SCARCITY SECTION */
+/* CLIENT LOGOS */
 
-.scarcity{
-text-align:center;
-font-size:22px;
-color:#c6a55c;
-margin-top:40px;
+.logos{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:40px;
+opacity:.7;
+}
+
+.logos img{
+width:120px;
+filter:grayscale(100%);
+transition:.4s;
+}
+
+.logos img:hover{
+filter:none;
+transform:scale(1.1);
 }
 
 /* PRICING */
@@ -227,9 +251,17 @@ margin:auto;
 padding:70px 40px;
 border-radius:30px;
 background:rgba(255,255,255,.05);
-backdrop-filter:blur(25px);
 text-align:center;
 border:1px solid rgba(255,255,255,.08);
+}
+
+/* SCARCITY */
+
+.scarcity{
+text-align:center;
+color:#c6a55c;
+margin-top:40px;
+font-size:20px;
 }
 
 /* PARTICLES */
@@ -251,22 +283,11 @@ animation:floatParticles linear infinite;
 }
 
 @keyframes floatParticles{
-from{
-transform:translateY(0);
-}
-to{
-transform:translateY(-120vh);
-}
+from{transform:translateY(0)}
+to{transform:translateY(-120vh)}
 }
 
-/* ANIMATION */
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-/* MESSENGER */
+/* MESSENGER BUTTON */
 
 .messenger-btn{
 position:fixed;
@@ -284,6 +305,20 @@ font-size:28px;
 text-decoration:none;
 box-shadow:0 0 40px rgba(198,165,92,.8);
 z-index:9999;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+bottom:100px;
+right:25px;
+background:#111;
+padding:20px;
+border-radius:12px;
+border:1px solid #333;
+display:none;
+max-width:250px;
 }
 
 /* MOBILE */
@@ -320,21 +355,20 @@ font-size:36px;
 
 <body>
 
+<div class="cursor" id="cursor"></div>
 <div id="progressBar"></div>
-
 <div class="particles" id="particles"></div>
 
 <nav>
 
 <h2>SDDR Services</h2>
 
-<div class="menu-btn">
-<i class="fas fa-bars"></i>
-</div>
+<div class="menu-btn"><i class="fas fa-bars"></i></div>
 
 <ul class="nav-links">
 <li><a href="#services">Services</a></li>
 <li><a href="#why">Why Us</a></li>
+<li><a href="#clients">Clients</a></li>
 <li><a href="#pricing">Pricing</a></li>
 </ul>
 
@@ -360,21 +394,10 @@ font-size:36px;
 
 <div class="grid">
 
-<div class="card">
-<h3>Premium Web Design</h3>
-</div>
-
-<div class="card">
-<h3>Marketing Strategy</h3>
-</div>
-
-<div class="card">
-<h3>SEO Optimization</h3>
-</div>
-
-<div class="card">
-<h3>Security Systems</h3>
-</div>
+<div class="card"><h3>Premium Web Design</h3></div>
+<div class="card"><h3>Marketing Strategy</h3></div>
+<div class="card"><h3>SEO Optimization</h3></div>
+<div class="card"><h3>Security Systems</h3></div>
 
 </div>
 
@@ -389,31 +412,46 @@ font-size:36px;
 <div class="feature">
 <i class="fas fa-gem"></i>
 <h3>Premium Design</h3>
-<p>Luxury level websites designed to impress clients.</p>
+<p>Luxury website experience for serious businesses.</p>
 </div>
 
 <div class="feature">
 <i class="fas fa-rocket"></i>
-<h3>Business Growth Focus</h3>
-<p>Not just websites — we build digital systems that generate leads.</p>
+<h3>Growth Focused</h3>
+<p>Our systems are designed to generate real leads.</p>
 </div>
 
 <div class="feature">
 <i class="fas fa-shield-alt"></i>
 <h3>Secure Systems</h3>
-<p>Advanced protection and reliable website performance.</p>
+<p>Protected infrastructure and reliable hosting.</p>
 </div>
 
 <div class="feature">
 <i class="fas fa-crown"></i>
 <h3>Exclusive Clients</h3>
-<p>We only accept limited businesses each month.</p>
+<p>We accept limited businesses each month.</p>
 </div>
 
 </div>
 
 <div class="scarcity">
 ⚜ Only <b>2 client slots</b> remaining this month
+</div>
+
+</section>
+
+<section class="section" id="clients">
+
+<h2>Trusted By Businesses</h2>
+
+<div class="logos">
+
+<img src="https://dummyimage.com/200x80/fff/000&text=Brand+1">
+<img src="https://dummyimage.com/200x80/fff/000&text=Brand+2">
+<img src="https://dummyimage.com/200x80/fff/000&text=Brand+3">
+<img src="https://dummyimage.com/200x80/fff/000&text=Brand+4">
+
 </div>
 
 </section>
@@ -441,6 +479,11 @@ font-size:36px;
 <footer style="text-align:center;padding:60px;color:#666">
 © 2026 SDDR Services
 </footer>
+
+<div class="popup" id="popup">
+👋 Hi! Interested in a website for your business?<br><br>
+Click the Messenger button to chat with us.
+</div>
 
 <a href="https://web.facebook.com/sddrservices" class="messenger-btn">
 <i class="fab fa-facebook-messenger"></i>
@@ -473,20 +516,26 @@ sections.forEach(sec=>observer.observe(sec))
 window.onscroll=function(){
 
 let winScroll=document.body.scrollTop||document.documentElement.scrollTop
-
 let height=document.documentElement.scrollHeight-document.documentElement.clientHeight
-
 let scrolled=(winScroll/height)*100
-
 document.getElementById("progressBar").style.width=scrolled+"%"
 
 }
+
+/* GOLD CURSOR */
+
+const cursor=document.getElementById("cursor")
+
+document.addEventListener("mousemove",e=>{
+cursor.style.top=e.clientY+"px"
+cursor.style.left=e.clientX+"px"
+})
 
 /* PARTICLES */
 
 const container=document.getElementById("particles")
 
-for(let i=0;i<50;i++){
+for(let i=0;i<60;i++){
 
 let span=document.createElement("span")
 
@@ -497,6 +546,12 @@ span.style.animationDuration=(10+Math.random()*20)+"s"
 container.appendChild(span)
 
 }
+
+/* AUTO POPUP */
+
+setTimeout(()=>{
+document.getElementById("popup").style.display="block"
+},4000)
 
 </script>
 
